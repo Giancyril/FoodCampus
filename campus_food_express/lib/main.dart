@@ -2340,122 +2340,124 @@ class _VendorMainScreenState extends State<VendorMainScreen> {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
-          // Premium Gradient Header
-          Container(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 20,
-              left: 20,
-              right: 20,
-              bottom: 22,
-            ),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF4F46E5), Color(0xFF6366F1)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+          if (_tabIndex != 1) ...[
+            // Premium Midnight Navy Gradient Header (Option B Matching)
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 20,
+                left: 20,
+                right: 20,
+                bottom: 22,
               ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24),
-                bottomRight: Radius.circular(24),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
               ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.12),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
-                  ),
-                  child: const Icon(
-                    Icons.storefront_rounded,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(() => Text(
-                        authController.currentUser.value?.stallName ?? "My Canteen Stall",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18,
-                          letterSpacing: -0.5,
-                        ),
-                      )),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF10B981).withOpacity(0.18),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 6,
-                                  height: 6,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF10B981),
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                const Text(
-                                  'ONLINE',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 9,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'STL001',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.6),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    authController.logout();
-                    Get.offAll(() => const WelcomeLoginScreen());
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.12),
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white.withOpacity(0.15)),
+                      border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
                     ),
                     child: const Icon(
-                      Icons.logout_rounded,
+                      Icons.storefront_rounded,
                       color: Colors.white,
-                      size: 18,
+                      size: 24,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Obx(() => Text(
+                          authController.currentUser.value?.stallName ?? "My Canteen Stall",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 18,
+                            letterSpacing: -0.5,
+                          ),
+                        )),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF10B981).withOpacity(0.18),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 6,
+                                    height: 6,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFF10B981),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  const Text(
+                                    'ONLINE',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 9,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'STL001',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.6),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      authController.logout();
+                      Get.offAll(() => const WelcomeLoginScreen());
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.12),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white.withOpacity(0.15)),
+                      ),
+                      child: const Icon(
+                        Icons.logout_rounded,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
           Expanded(
             child: vendorScreens[_tabIndex],
           ),
@@ -2886,39 +2888,71 @@ class VendorMenuTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    authController.currentUser.value?.stallName ?? 'Chef Maria\'s Canteen Stall',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  // Green verified badge
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF10B981).withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: const Color(0xFF10B981).withOpacity(0.2)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.verified_rounded, color: Color(0xFF10B981), size: 14),
-                        SizedBox(width: 4),
-                        Text(
-                          'Active Authority',
-                          style: TextStyle(
-                            color: Color(0xFF10B981),
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              authController.currentUser.value?.stallName ?? 'Chef Maria\'s Canteen Stall',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            // Green verified badge
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF10B981).withOpacity(0.12),
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(color: const Color(0xFF10B981).withOpacity(0.2)),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.verified_rounded, color: Color(0xFF10B981), size: 14),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'Active Authority',
+                                    style: TextStyle(
+                                      color: Color(0xFF10B981),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      GestureDetector(
+                        onTap: () {
+                          authController.logout();
+                          Get.offAll(() => const WelcomeLoginScreen());
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.08),
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white.withOpacity(0.12)),
+                          ),
+                          child: const Icon(
+                            Icons.logout_rounded,
+                            color: Colors.white,
+                            size: 18,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 18),
 
