@@ -10,10 +10,11 @@
       <stop offset="100%" stop-color="#1E293B"/>
     </linearGradient>
 
-    <!-- Promotional Salad Banner Gradient -->
-    <linearGradient id="promoGrad" x1="20" y1="260" x2="370" y2="380" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#F59E0B"/>
-      <stop offset="100%" stop-color="#10B981"/>
+    <!-- Promotional Salad Banner Gradient (Active Green to Gold-Yellow) -->
+    <linearGradient id="promoGrad" x1="32" y1="230" x2="358" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="60%" stop-color="#84CC16"/>
+      <stop offset="100%" stop-color="#EAB308"/>
     </linearGradient>
 
     <!-- Card Shadow -->
@@ -22,148 +23,170 @@
     </filter>
   </defs>
 
-  <!-- 1. FIGMA HEADER SECTION (MIDNIGHT NAVY GRADIENT) -->
-  <path d="M0 0H390V210C390 226.569 376.569 240 360 240H30C13.4315 240 0 226.569 0 210V0Z" fill="url(#headerGrad)"/>
+  <!-- 1. HEADER SECTION (MIDNIGHT NAVY GRADIENT CARD) -->
+  <path d="M0 0H390V210C390 230 370 248 348 248H42C20 248 0 230 0 210V0Z" fill="url(#headerGrad)"/>
 
   <!-- Status Bar placeholder (Standard iOS-style) -->
-  <text x="32" y="38" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">9:41</text>
-  <!-- Wi-Fi, Signal, Battery Icons placeholder -->
-  <g transform="translate(320, 28)" fill="#FFFFFF">
+  <text x="32" y="38" fill="#FFFFFF" fill-opacity="0.6" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <g transform="translate(320, 28)" fill="#FFFFFF" fill-opacity="0.6">
     <path d="M2 3h2v8H2V3zm4-2h2v10H6V1zm4 4h2v6h-2V5zm4-3h2v9h-2V2z"/>
   </g>
 
   <!-- "Good morning," Greeting text -->
-  <text x="24" y="84" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="0.5">GOOD MORNING,</text>
-  <text x="24" y="112" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.5">Jhonford Deguzman!</text>
+  <text x="32" y="64" fill="#FFFFFF" fill-opacity="0.6" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500">Good morning,</text>
+  <text x="32" y="98" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="900" letter-spacing="-0.8">20221270</text>
 
   <!-- Custom Bell Icon with active notification green dot -->
-  <rect x="290" y="78" width="36" height="36" rx="18" fill="#FFFFFF" fill-opacity="0.08"/>
-  <path d="M308 87C304.686 87 302 89.6863 302 93V97.5L300 99.5V101H316V99.5L314 97.5V93C314 89.6863 311.314 87 308 87Z" fill="#FFFFFF"/>
-  <circle cx="314" cy="87" r="4" fill="#10B981" stroke="#0F172A" stroke-width="1.5"/>
+  <circle cx="288" cy="82" r="18" fill="#FFFFFF" fill-opacity="0.08"/>
+  <path d="M288 74c-2.21 0-4 1.79-4 4v5.5l-1.5 1.5V86h11v-1L292 83.5V78c0-2.21-1.79-4-4-4z" fill="#FFFFFF"/>
+  <circle cx="294" cy="74" r="3.5" fill="#10B981" stroke="#0F172A" stroke-width="1.5"/>
 
-  <!-- Letter initial Circular Avatar -->
-  <circle cx="348" cy="96" r="18" fill="#10B981"/>
-  <text x="348" y="101" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle">J</text>
+  <!-- Active Count circular badge on header right -->
+  <circle cx="334" cy="82" r="18" fill="#10B981"/>
+  <text x="334" y="87" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle">2</text>
 
   <!-- Search Bar with translucent overlay and rounded corner -->
-  <rect x="24" y="148" width="342" height="48" rx="14" fill="#FFFFFF" fill-opacity="0.08"/>
+  <rect x="32" y="138" width="326" height="48" rx="14" fill="#FFFFFF" fill-opacity="0.08"/>
   <!-- Search Magnifier Icon -->
-  <circle cx="48" cy="172" r="6" stroke="#94A3B8" stroke-width="2" fill="none"/>
-  <line x1="53" y1="177" x2="59" y2="183" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
-  <text x="68" y="177" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500">Search for meals, cafes...</text>
+  <circle cx="56" cy="162" r="6" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="2" fill="none"/>
+  <line x1="61" y1="167" x2="67" y2="173" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="2" stroke-linecap="round"/>
+  <text x="76" y="167" fill="#FFFFFF" fill-opacity="0.4" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500">Search for meals, cafes...</text>
 
 
-  <!-- 2. PROMOTIONAL salad BANNER -->
+  <!-- 2. PREMIUM PROMOTIONAL GRADIENT BANNER -->
   <g filter="url(#cardShadow)">
-    <rect x="24" y="260" width="342" height="110" rx="24" fill="url(#promoGrad)"/>
+    <rect x="32" y="268" width="326" height="184" rx="28" fill="url(#promoGrad)"/>
   </g>
-  <!-- Background circular graphics -->
-  <circle cx="310" cy="315" r="70" fill="#FFFFFF" fill-opacity="0.1"/>
-  <text x="44" y="302" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="900" letter-spacing="-0.5">Campus Lunch Specials</text>
-  <text x="44" y="322" fill="#FFFFFF" fill-opacity="0.9" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600">Fresh salads delivered under 15 mins</text>
+
+  <!-- Banner Headline text -->
+  <text x="52" y="318" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.8">Campus Lunch</text>
+  <text x="52" y="348" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.8">Specials</text>
   
-  <!-- Banner Button -->
-  <rect x="44" y="336" width="94" height="26" rx="13" fill="#FFFFFF"/>
-  <text x="91" y="352" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle">CLAIM 25% OFF</text>
-
-  <!-- Overlapping salad bowl vector artwork -->
-  <circle cx="300" cy="315" r="42" fill="#FFFFFF"/>
-  <circle cx="300" cy="315" r="38" fill="#D1FAE5"/>
-  <path d="M280 305C290 295 310 295 320 305" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="290" cy="325" r="5" fill="#EF4444"/>
-  <circle cx="312" cy="328" r="6" fill="#F59E0B"/>
-  <circle cx="302" cy="310" r="4" fill="#3B82F6"/>
-
-
-  <!-- 3. CATEGORIES SECTIONS (Pure Text pills, no icons) -->
-  <text x="24" y="405" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="900" letter-spacing="-0.3">Categories</text>
+  <text x="52" y="380" fill="#FFFFFF" fill-opacity="0.95" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">Campus Lunch Specials: 20%</text>
+  <text x="52" y="396" fill="#FFFFFF" fill-opacity="0.95" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">OFF ALL BOWLS! - Chef Maria's</text>
   
-  <!-- Horizontal scrollable pills -->
-  <!-- "Meals" - Selected -->
-  <rect x="24" y="420" width="70" height="34" rx="17" fill="#10B981"/>
-  <text x="59" y="441" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">Meals</text>
-  
-  <!-- "Drinks" -->
-  <rect x="102" y="420" width="74" height="34" rx="17" fill="#F1F5F9"/>
-  <text x="139" y="441" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Drinks</text>
-  
-  <!-- "Desserts" -->
-  <rect x="184" y="420" width="86" height="34" rx="17" fill="#F1F5F9"/>
-  <text x="227" y="441" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Desserts</text>
+  <!-- Banner Pill Button -->
+  <rect x="52" y="420" width="112" height="34" rx="17" fill="#FFFFFF"/>
+  <text x="108" y="441" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="900" text-anchor="middle">VIEW OFFERS</text>
 
-  <!-- "Snacks" -->
-  <rect x="278" y="420" width="76" height="34" rx="17" fill="#F1F5F9"/>
-  <text x="316" y="441" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Snacks</text>
+  <!-- Banner Salad Bowl graphic on the right -->
+  <g transform="translate(284, 350)">
+    <!-- Base Plate -->
+    <circle cx="0" cy="0" r="54" fill="#FFFFFF" fill-opacity="0.15"/>
+    <circle cx="0" cy="0" r="48" fill="#F8FAFC"/>
+    
+    <!-- Food Ingredients: Detailed Vector Salad Elements -->
+    <!-- Lettuce/Greens base -->
+    <path d="M-36 -12c12-32 54-20 64 6s-20 40-42 34s-34-16-22-40Z" fill="#86EFAC"/>
+    <path d="M-12 -34c22-12 40 8 36 28s-34 26-44 6s-14-22 8-34Z" fill="#4ADE80"/>
+    
+    <!-- Cherry Tomatoes (Red) -->
+    <circle cx="-16" cy="-22" r="8" fill="#EF4444"/>
+    <circle cx="-18" cy="-24" r="2" fill="#FFFFFF" fill-opacity="0.8"/>
+    <circle cx="-6" cy="-28" r="7" fill="#F87171"/>
+    <circle cx="-8" cy="-30" r="1.5" fill="#FFFFFF" fill-opacity="0.8"/>
+    <circle cx="-24" cy="-10" r="6" fill="#EF4444"/>
+
+    <!-- Avocado Slices (Light Green crescents) -->
+    <path d="M12 -12 A 16 16 0 0 1 34 12 A 20 20 0 0 0 16 -24 Z" fill="#BBF7D0"/>
+    <path d="M8 -6 A 14 14 0 0 1 28 16 A 18 18 0 0 0 12 -18 Z" fill="#86EFAC"/>
+
+    <!-- Yellow Bell Pepper strips (Yellow/Gold) -->
+    <path d="M-10 20 Q -4 34 12 36" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M-22 14 Q -12 26 4 30" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+    <!-- Dark Red Cabbage (Purple) -->
+    <path d="M-28 -4c-4 8 2 16 8 12s4-12-8-14Z" fill="#A855F7"/>
+    <path d="M-20 -2c-2 6 2 12 6 10s2-10-6-12Z" fill="#C084FC"/>
+
+    <!-- Chickpeas/Seeds (Beige circles) -->
+    <circle cx="12" cy="-4" r="3.5" fill="#FED7AA"/>
+    <circle cx="18" cy="4" r="3" fill="#FDBA74"/>
+    <circle cx="2" cy="10" r="3.5" fill="#FED7AA"/>
+    <circle cx="8" cy="18" r="3" fill="#FDBA74"/>
+  </g>
 
 
-  <!-- 4. LANDSCAPE STALLS LIST -->
-  <text x="24" y="488" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="900" letter-spacing="-0.3">Campus Canteens</text>
+  <!-- 3. CATEGORIES SELECTION ROW (Pill Chips) -->
+  <g transform="translate(32, 492)">
+    <!-- "Meals" (Selected with solid active green) -->
+    <rect x="0" y="0" width="84" height="38" rx="19" fill="#10B981"/>
+    <text x="42" y="24" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle">Meals</text>
 
-  <!-- Canteen Card 1 (Chef Maria's Canteen Stall) -->
+    <!-- "Drinks" (Soft grey) -->
+    <rect x="94" y="0" width="86" height="38" rx="19" fill="#F1F5F9"/>
+    <text x="137" y="24" fill="#475569" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Drinks</text>
+
+    <!-- "Desserts" (Soft grey) -->
+    <rect x="190" y="0" width="102" height="38" rx="19" fill="#F1F5F9"/>
+    <text x="241" y="24" fill="#475569" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Desserts</text>
+
+    <!-- "Snacks" (Soft grey) -->
+    <rect x="302" y="0" width="86" height="38" rx="19" fill="#F1F5F9"/>
+    <text x="345" y="24" fill="#475569" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">Snacks</text>
+  </g>
+
+
+  <!-- 4. FEATURED CAMPUS STALLS LIST -->
+  <text x="32" y="584" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="900" letter-spacing="-0.5">Featured Campus Stalls</text>
+
+  <!-- Stall Card 1: Maria's Homestyle Meals -->
   <g filter="url(#cardShadow)">
-    <rect x="24" y="506" width="342" height="106" rx="22" fill="#F1F5F9"/>
+    <rect x="32" y="608" width="326" height="116" rx="24" fill="#F1F5F9"/>
   </g>
-  <!-- Stall image thumbnail -->
-  <rect x="36" y="519" width="80" height="80" rx="16" fill="#CBD5E1"/>
-  <!-- Chef graphic inside thumbnail -->
-  <circle cx="76" cy="552" r="16" fill="#10B981"/>
-  <text x="76" y="557" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900" text-anchor="middle">🍳</text>
-  
-  <!-- Stall metadata -->
-  <text x="130" y="540" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Chef Maria's Stall</text>
-  <text x="130" y="556" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700">Campus Center • Western</text>
-  
-  <!-- Rating Star with count -->
-  <path d="M135 565L136.5 569.5H141.2L137.4 572.2L138.8 576.7L135 574L131.2 576.7L132.6 572.2L128.8 569.5H133.5L135 565Z" fill="#F59E0B"/>
-  <text x="145" y="574" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="800">4.8</text>
-  <text x="166" y="574" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">(1.2k+ reviews)</text>
-  
-  <text x="130" y="591" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700">₱₱, Fast Delivery (15-20m)</text>
 
-  <!-- Emerald Order Now Button -->
-  <rect x="272" y="543" width="82" height="32" rx="10" fill="#10B981"/>
-  <text x="313" y="563" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle">Order Now</text>
-
-
-  <!-- Canteen Card 2 (University Plaza Stall) -->
-  <g filter="url(#cardShadow)">
-    <rect x="24" y="626" width="342" height="106" rx="22" fill="#F1F5F9"/>
+  <!-- Canteen Thumbnail Image on left -->
+  <rect x="44" y="624" width="84" height="84" rx="20" fill="#FFFFFF"/>
+  <!-- Mini Salad Illustration inside Thumbnail -->
+  <g transform="translate(86, 666)">
+    <circle cx="0" cy="0" r="32" fill="#E2E8F0"/>
+    <circle cx="0" cy="0" r="28" fill="#F1F5F9"/>
+    <!-- Veggies -->
+    <path d="M-16 -6c6-14 26-10 30 2s-10 18-20 16s-16-8-10-18Z" fill="#4ADE80"/>
+    <circle cx="-8" cy="-10" r="4.5" fill="#EF4444"/>
+    <circle cx="10" cy="6" r="4.5" fill="#F59E0B"/>
+    <circle cx="0" cy="8" r="3" fill="#BBF7D0"/>
   </g>
-  <rect x="36" y="639" width="80" height="80" rx="16" fill="#CBD5E1"/>
-  <circle cx="76" cy="672" r="16" fill="#3B82F6"/>
-  <text x="76" y="677" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900" text-anchor="middle">🍔</text>
-  
-  <text x="130" y="660" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Plaza Burger Express</text>
-  <text x="130" y="676" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700">University Plaza • Fast Food</text>
-  
-  <path d="M135 685L136.5 689.5H141.2L137.4 692.2L138.8 696.7L135 694L131.2 696.7L132.6 692.2L128.8 689.5H133.5L135 685Z" fill="#F59E0B"/>
-  <text x="145" y="694" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="800">4.5</text>
-  <text x="166" y="694" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">(800+ reviews)</text>
-  
-  <text x="130" y="711" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700">₱, Fast Delivery (10-15m)</text>
 
-  <rect x="272" y="663" width="82" height="32" rx="10" fill="#10B981"/>
-  <text x="313" y="683" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle">Order Now</text>
-
-
-  <!-- Bottom Navigation Bar representation (iOS styled) -->
-  <path d="M0 764H390V844H0V764Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <!-- Canteen Information metadata -->
+  <text x="142" y="646" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Maria's Homestyle Meals</text>
+  <text x="142" y="664" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">Campus Center • Western</text>
   
-  <!-- Cart Tab -->
-  <g transform="translate(53, 778)" fill="#94A3B8">
+  <!-- Rating Row -->
+  <path d="M147 674L148.5 678.5H153.2L149.4 681.2L150.8 685.7L147 683L143.2 685.7L144.6 681.2L140.8 678.5H145.5L147 674Z" fill="#F59E0B"/>
+  <text x="158" y="682" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="10.5" font-weight="900">4.8</text>
+  <text x="178" y="682" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600">(1.2k+ Reviews)</text>
+  
+  <text x="142" y="700" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700">$$, Fast Delivery (15-20 mins)</text>
+
+  <!-- Green "Order Now" Button -->
+  <rect x="268" y="660" width="82" height="34" rx="11" fill="#10B981"/>
+  <text x="309" y="681" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="10.5" font-weight="900" text-anchor="middle">Order Now</text>
+
+
+  <!-- 5. BOTTOM NAVIGATION BAR (Standard 4 Tabs with Pill Highlighting) -->
+  <path d="M0 754H390V844H0V754Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+  <!-- Tab 1: Home (Active Pill highlighted) -->
+  <g transform="translate(32, 768)">
+    <rect x="0" y="0" width="102" height="38" rx="19" fill="#10B981"/>
+    <!-- House Icon -->
+    <path d="M22 17h-3v-6H13v6h-3v-8l6-4.5l6 4.5v8z" fill="#FFFFFF" transform="translate(2, 2)"/>
+    <text x="56" y="24" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="900">Home</text>
+  </g>
+
+  <!-- Tab 2: Shopping Cart -->
+  <g transform="translate(164, 775)" fill="#94A3B8">
     <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-    <text x="12" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Cart</text>
   </g>
 
-  <!-- Orders Tab -->
-  <g transform="translate(183, 778)" fill="#94A3B8">
-    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-    <text x="12" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Orders</text>
+  <!-- Tab 3: Active Orders (Transit truck) -->
+  <g transform="translate(238, 775)" fill="#94A3B8">
+    <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-14 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm11.5-4.5L19.5 8h-2.5v4.5h.5zM17 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
   </g>
 
-  <!-- Profile Tab -->
-  <g transform="translate(313, 778)" fill="#94A3B8">
-    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-    <text x="12" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Profile</text>
+  <!-- Tab 4: History Record (Clock/Timeline) -->
+  <g transform="translate(312, 775)" fill="#94A3B8">
+    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
   </g>
 </svg>
