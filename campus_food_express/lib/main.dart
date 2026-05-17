@@ -708,15 +708,73 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                           ),
                           const SizedBox(width: 10),
                           // User Circular Initial Avatar
-                          CircleAvatar(
-                            radius: 18,
-                            backgroundColor: const Color(0xFF10B981),
-                            child: Text(
-                              (authController.currentUser.value?.name ?? 'J').substring(0, 1).toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 13,
+                          GestureDetector(
+                            onTap: () {
+                              Get.dialog(
+                                AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  title: const Text(
+                                    'Logout Account',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                  content: const Text(
+                                    'Are you sure you want to log out of Campus Food Express?',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.textSecondary,
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Get.back(),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.textSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                        foregroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Get.back();
+                                        authController.logout();
+                                        Get.offAll(() => const WelcomeLoginScreen());
+                                      },
+                                      child: const Text(
+                                        'Logout',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              radius: 18,
+                              backgroundColor: const Color(0xFF10B981),
+                              child: Text(
+                                (authController.currentUser.value?.name ?? 'J').substring(0, 1).toUpperCase(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                           ),
@@ -2859,6 +2917,9 @@ class VendorMenuTab extends StatelessWidget {
       ),
       body: Obx(() {
         var myMenuItems = orderController.menuItems.where((i) => i.stallId == 'STL001').toList();
+        var myOrders = orderController.orders.where((o) => o.stallId == 'STL001').toList();
+        int activeCount = myOrders.where((o) => o.status == 'pending' || o.status == 'preparing' || o.status == 'ready').length;
+        double todaySales = myOrders.where((o) => o.status == 'completed').fold(0.0, (sum, o) => sum + o.total) + 4520.0;
 
         return ListView(
           padding: EdgeInsets.zero,
@@ -2987,9 +3048,9 @@ class VendorMenuTab extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 4),
-                                const Text(
-                                  '₱4,520',
-                                  style: TextStyle(
+                                Text(
+                                  '₱${todaySales.toStringAsFixed(0)}',
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 32,
                                     fontWeight: FontWeight.w900,
@@ -3016,9 +3077,9 @@ class VendorMenuTab extends StatelessWidget {
                                     color: const Color(0xFF10B981),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: const Text(
-                                    '8',
-                                    style: TextStyle(
+                                  child: Text(
+                                    '$activeCount',
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w900,

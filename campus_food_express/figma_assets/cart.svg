@@ -1,0 +1,106 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft grey application background -->
+  <rect width="390" height="844" fill="#F8FAFC"/>
+
+  <!-- DEFINITIONS (Shadows & Gradients) -->
+  <defs>
+    <!-- Card Shadow -->
+    <filter id="cardShadow" x="-10" y="-10" width="410" height="864" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <!-- Status Bar placeholder (Standard iOS-style) -->
+  <text x="32" y="38" fill="#0D121B" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <g transform="translate(320, 28)" fill="#0D121B">
+    <path d="M2 3h2v8H2V3zm4-2h2v10H6V1zm4 4h2v6h-2V5zm4-3h2v9h-2V2z"/>
+  </g>
+
+  <!-- 1. CART SCREEN HEADER -->
+  <text x="24" y="92" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.8">My Cart</text>
+
+  <!-- 2. CART ITEM CARD (Adobo Chicken Rice Meal) -->
+  <g filter="url(#cardShadow)">
+    <rect x="24" y="128" width="342" height="96" rx="22" fill="#FFFFFF"/>
+  </g>
+  <!-- Thumbnail Image -->
+  <rect x="36" y="141" width="70" height="70" rx="14" fill="#E2E8F0"/>
+  <!-- Chicken Bowl Emoji graphic inside thumbnail -->
+  <circle cx="71" cy="176" r="16" fill="#10B981" fill-opacity="0.1"/>
+  <text x="71" y="181" font-family="Inter, system-ui, sans-serif" font-size="20" text-anchor="middle">🍗</text>
+
+  <!-- Item Title & Details -->
+  <text x="120" y="162" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">Chicken Adobo Rice Meal</text>
+  <text x="120" y="182" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600">Maria's Homestyle Meals</text>
+  <text x="120" y="202" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱95.00</text>
+
+  <!-- Counter Controls on the right -->
+  <!-- Minus Button -->
+  <circle cx="282" cy="176" r="13" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1.5"/>
+  <path d="M277 176H287" stroke="#64748B" stroke-width="2" stroke-linecap="round"/>
+  <!-- Value Count -->
+  <text x="312" y="181" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900" text-anchor="middle">1</text>
+  <!-- Plus Button -->
+  <circle cx="342" cy="176" r="13" fill="#10B981" fill-opacity="0.1"/>
+  <path d="M337 176H347M342 171V181" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- 3. PICKUP & PAYMENT SELECTION CONTAINER -->
+  <g filter="url(#cardShadow)">
+    <path d="M24 430C24 410 38 396 56 396H334C352 396 366 410 366 430V740H24V430Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Pickup Time Selector dropdown -->
+  <text x="44" y="440" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="800">Pickup Time:</text>
+  <rect x="232" y="420" width="114" height="34" rx="10" fill="#F1F5F9"/>
+  <text x="252" y="441" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">ASAP</text>
+  <path d="M318 434L322 438L326 434" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Payment Method Selector dropdown -->
+  <text x="44" y="494" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="800">Payment Method:</text>
+  <rect x="232" y="474" width="114" height="34" rx="10" fill="#F1F5F9"/>
+  <text x="252" y="495" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">GCash</text>
+  <path d="M318 488L322 492L326 488" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Divider line -->
+  <line x1="44" y1="532" x2="346" y2="532" stroke="#F1F5F9" stroke-width="1.5"/>
+
+  <!-- Subtotal row -->
+  <text x="44" y="562" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">Subtotal</text>
+  <text x="346" y="562" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="end">₱95.00</text>
+
+  <!-- VAT (5%) row -->
+  <text x="44" y="594" fill="#64748B" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">VAT (5%)</text>
+  <text x="346" y="594" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="end">₱4.75</text>
+
+  <!-- Total row -->
+  <text x="44" y="630" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="900" letter-spacing="-0.5">Total</text>
+  <text x="346" y="630" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="900" letter-spacing="-0.5" text-anchor="end">₱99.75</text>
+
+  <!-- Checkout Primary Button in Emerald -->
+  <rect x="44" y="660" width="302" height="52" rx="16" fill="#10B981"/>
+  <text x="195" y="692" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="900" letter-spacing="-0.2" text-anchor="middle">Proceed to Checkout</text>
+
+  <!-- Bottom Navigation Bar representation (iOS styled) -->
+  <path d="M0 764H390V844H0V764Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  
+  <!-- Cart Tab (Selected with green capsule) -->
+  <g transform="translate(48, 778)">
+    <rect x="-8" y="-4" width="70" height="34" rx="17" fill="#10B981"/>
+    <!-- Icon -->
+    <path d="M7 14c-1.1 0-1.99.9-1.99 2S5.9 18 7 18s2-.9 2-2-.9-2-2-2zM1 2v1.5h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 .83.67 1.5 1.5 1.5h12v-1.5H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.83-.67-1.5-1.5-1.5H5.21l-.94-2H1zm16 12c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="#FFFFFF"/>
+    <!-- Count badge 1 on Cart icon -->
+    <circle cx="21" cy="4" r="7" fill="#EF4444"/>
+    <text x="21" y="7" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="8" font-weight="900" text-anchor="middle">1</text>
+    <text x="38" y="17" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="900">Cart</text>
+  </g>
+
+  <!-- Orders Track Tab -->
+  <g transform="translate(183, 778)" fill="#94A3B8">
+    <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zm-14 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm11.5-4.5L19.5 8h-2.5v4.5h.5zM17 17c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
+  </g>
+
+  <!-- History Tab -->
+  <g transform="translate(313, 778)" fill="#94A3B8">
+    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+  </g>
+</svg>
