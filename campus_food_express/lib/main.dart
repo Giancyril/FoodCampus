@@ -625,7 +625,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Jhonford's Figma Slate Header Banner
+            // Jhonford's Figma Slate Header Banner (Option B: Midnight Navy Gradient)
             Container(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 16,
@@ -634,7 +634,14 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                 bottom: 24,
               ),
               decoration: const BoxDecoration(
-                color: Color(0xFF131D24), // Elegant dark slate green-gray
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF0F172A),
+                    Color(0xFF1E293B),
+                  ],
+                ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
@@ -676,8 +683,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                             alignment: Alignment.topRight,
                             children: [
                               Container(
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFF1E2E38),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.08),
                                   shape: BoxShape.circle,
                                 ),
                                 child: IconButton(
@@ -722,7 +729,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                   Container(
                     height: 48,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1E2E38),
+                      color: Colors.white.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -2854,7 +2861,7 @@ class VendorMenuTab extends StatelessWidget {
         return ListView(
           padding: EdgeInsets.zero,
           children: [
-            // Dark Slate Header Card Block
+            // Jhonford's Figma Slate Header Banner (Option B: Midnight Navy Gradient)
             Container(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 16,
@@ -2863,7 +2870,14 @@ class VendorMenuTab extends StatelessWidget {
                 bottom: 24,
               ),
               decoration: const BoxDecoration(
-                color: Color(0xFF131D24), // Elegant dark slate green-gray matching student header
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF0F172A),
+                    Color(0xFF1E293B),
+                  ],
+                ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
