@@ -900,6 +900,17 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
+                                          const SizedBox(width: 12),
+                                          const Icon(Icons.flash_on_rounded, color: Colors.orange, size: 14),
+                                          const SizedBox(width: 2),
+                                          const Text(
+                                            '10-15m prep',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              color: Colors.orange,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -1202,6 +1213,8 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     var food = items[index];
+                    bool isAvailable = food.isAvailable;
+
                     return Container(
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
@@ -1215,77 +1228,140 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.network(
-                                food.imageUrl,
-                                height: 84,
-                                width: 84,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Opacity(
+                        opacity: isAvailable ? 1.0 : 0.6,
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Row(
+                            children: [
+                              Stack(
                                 children: [
-                                  Text(
-                                    food.name,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15,
-                                      color: AppColors.textPrimary,
-                                      letterSpacing: -0.3,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Image.network(
+                                      food.imageUrl,
+                                      height: 84,
+                                      width: 84,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    food.description,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: AppColors.textSecondary,
-                                      fontSize: 11,
-                                      height: 1.4,
+                                  if (!isAvailable)
+                                    Positioned.fill(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.45),
+                                          borderRadius: BorderRadius.circular(16),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            'SOLD OUT',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w900,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    '₱${food.price.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: AppColors.emerald,
-                                      fontSize: 15,
-                                    ),
-                                  ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(width: 8),
-                            // Dribbble Green Rounded Circular Add Button
-                            InkWell(
-                              onTap: () {
-                                _showAddToCartSheet(context, food);
-                              },
-                              borderRadius: BorderRadius.circular(16),
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.emerald,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.add_rounded,
-                                  color: Colors.white,
-                                  size: 20,
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            food.name,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 15,
+                                              color: AppColors.textPrimary,
+                                              letterSpacing: -0.3,
+                                            ),
+                                          ),
+                                        ),
+                                        if (!isAvailable)
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: Colors.red.shade50,
+                                              borderRadius: BorderRadius.circular(6),
+                                            ),
+                                            child: Text(
+                                              'Sold Out',
+                                              style: TextStyle(
+                                                color: Colors.red.shade800,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      food.description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: AppColors.textSecondary,
+                                        fontSize: 11,
+                                        height: 1.4,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '₱${food.price.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        color: AppColors.emerald,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 8),
+                              // Dribbble Green Rounded Circular Add Button (Disabled if Sold Out)
+                              if (isAvailable)
+                                InkWell(
+                                  onTap: () {
+                                    _showAddToCartSheet(context, food);
+                                  },
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.emerald,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.add_rounded,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                )
+                              else
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.block_rounded,
+                                    color: Colors.grey.shade400,
+                                    size: 20,
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     );
