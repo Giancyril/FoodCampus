@@ -2349,70 +2349,129 @@ class _VendorMainScreenState extends State<VendorMainScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.02),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+      body: Column(
+        children: [
+          // Premium Gradient Header
+          Container(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 20,
+              left: 20,
+              right: 20,
+              bottom: 22,
+            ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF4F46E5), Color(0xFF6366F1)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
-          ),
-          child: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            scrolledUnderElevation: 0,
-            title: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    authController.currentUser.value?.stallName ?? "My Canteen Stall",
-                    style: const TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  const Text(
-                    'Vendor Business Dashboard',
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
               ),
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0, top: 8.0),
-                child: Container(
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6366F1).withOpacity(0.08),
+                    color: Colors.white.withOpacity(0.12),
                     shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
                   ),
-                  child: IconButton(
-                    icon: const Icon(Icons.logout_rounded, color: Color(0xFF6366F1), size: 20),
-                    onPressed: () {
-                      authController.logout();
-                      Get.offAll(() => const WelcomeLoginScreen());
-                    },
+                  child: const Icon(
+                    Icons.storefront_rounded,
+                    color: Colors.white,
+                    size: 24,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(() => Text(
+                        authController.currentUser.value?.stallName ?? "My Canteen Stall",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                          letterSpacing: -0.5,
+                        ),
+                      )),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF10B981).withOpacity(0.18),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF10B981),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                const Text(
+                                  'ONLINE',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 9,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'STL001',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.6),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    authController.logout();
+                    Get.offAll(() => const WelcomeLoginScreen());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.12),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withOpacity(0.15)),
+                    ),
+                    child: const Icon(
+                      Icons.logout_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: vendorScreens[_tabIndex],
+          ),
+        ],
       ),
-      body: vendorScreens[_tabIndex],
       bottomNavigationBar: VendorBottomNavBar(
         currentIndex: _tabIndex,
         onTap: (index) {
@@ -3049,70 +3108,129 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.02),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+      body: Column(
+        children: [
+          // Premium Admin Gradient Header
+          Container(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 20,
+              left: 20,
+              right: 20,
+              bottom: 22,
+            ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFDC2626), Color(0xFFEF4444)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
-          ),
-          child: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            scrolledUnderElevation: 0,
-            title: const Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Admin Console',
-                    style: TextStyle(
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  Text(
-                    'Manage canteens & check commissions',
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
               ),
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0, top: 8.0),
-                child: Container(
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEF4444).withOpacity(0.08),
+                    color: Colors.white.withOpacity(0.12),
                     shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
                   ),
-                  child: IconButton(
-                    icon: const Icon(Icons.logout_rounded, color: Color(0xFFEF4444), size: 20),
-                    onPressed: () {
-                      authController.logout();
-                      Get.offAll(() => const WelcomeLoginScreen());
-                    },
+                  child: const Icon(
+                    Icons.admin_panel_settings_rounded,
+                    color: Colors.white,
+                    size: 24,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Admin Console',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF10B981).withOpacity(0.18),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF10B981),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                const Text(
+                                  'SYS ACTIVE',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 9,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Superuser Authority',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.6),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    authController.logout();
+                    Get.offAll(() => const WelcomeLoginScreen());
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.12),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withOpacity(0.15)),
+                    ),
+                    child: const Icon(
+                      Icons.logout_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: adminScreens[_adminTab],
+          ),
+        ],
       ),
-      body: adminScreens[_adminTab],
       bottomNavigationBar: AdminBottomNavBar(
         currentIndex: _adminTab,
         onTap: (index) {
