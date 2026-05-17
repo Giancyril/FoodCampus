@@ -103,19 +103,3 @@ class OrderModel {
     required this.orderTime,
   });
 }
-
-class TaskModel {
-  String id;
-  String title;
-  String description;
-  DateTime dueDate;
-  String status; // 'pending', 'in_progress', 'completed'
-
-  TaskModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.dueDate,
-    this.status = 'pending',
-  });
-}
