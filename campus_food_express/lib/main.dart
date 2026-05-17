@@ -2991,12 +2991,10 @@ class VendorMenuTab extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    SizedBox(
-                      height: 38,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: imagePresets.length,
-                        itemBuilder: (context, i) {
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(imagePresets.length, (i) {
                           bool isSelected = imageController.text == imagePresets[i]['url'];
                           return Padding(
                             padding: const EdgeInsets.only(right: 8.0),
@@ -3023,7 +3021,7 @@ class VendorMenuTab extends StatelessWidget {
                               },
                             ),
                           );
-                        },
+                        }),
                       ),
                     ),
                     const SizedBox(height: 14),
