@@ -2905,7 +2905,38 @@ class VendorMenuTab extends StatelessWidget {
     final nameController = TextEditingController();
     final priceController = TextEditingController();
     final descController = TextEditingController();
+    final imageController = TextEditingController();
     String category = 'Meals';
+
+    final List<Map<String, String>> imagePresets = [
+      {
+        'label': '🍗 Adobo Rice',
+        'url': 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300'
+      },
+      {
+        'label': '🍔 Hamburger',
+        'url': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300'
+      },
+      {
+        'label': '🍜 Ramen Bowl',
+        'url': 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300'
+      },
+      {
+        'label': '🥗 Fresh Salad',
+        'url': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300'
+      },
+      {
+        'label': '🍰 Cake Slice',
+        'url': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300'
+      },
+      {
+        'label': '🥤 Melon Juice',
+        'url': 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=300'
+      },
+    ];
+
+    // Set default preset
+    imageController.text = imagePresets[0]['url']!;
 
     showDialog(
       context: context,
@@ -2919,6 +2950,96 @@ class VendorMenuTab extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Live Image Preview Card
+                    Container(
+                      height: 120,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: Colors.grey.shade200),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: imageController.text.trim().isNotEmpty
+                            ? Image.network(
+                                imageController.text,
+                                fit: BoxFit.cover,
+                                errorBuilder: (c, o, s) => const Center(
+                                  child: Icon(Icons.broken_image_rounded, size: 36, color: Colors.grey),
+                                ),
+                              )
+                            : const Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.add_photo_alternate_rounded, size: 36, color: Colors.grey),
+                                    SizedBox(height: 6),
+                                    Text('No image chosen', style: TextStyle(color: Colors.grey, fontSize: 11)),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Select Food Photo Preset:',
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    SizedBox(
+                      height: 38,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: imagePresets.length,
+                        itemBuilder: (context, i) {
+                          bool isSelected = imageController.text == imagePresets[i]['url'];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: ChoiceChip(
+                              label: Text(imagePresets[i]['label']!),
+                              selected: isSelected,
+                              selectedColor: const Color(0xFF6366F1).withOpacity(0.15),
+                              backgroundColor: Colors.white,
+                              labelStyle: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: isSelected ? const Color(0xFF6366F1) : AppColors.textSecondary,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                side: BorderSide(
+                                  color: isSelected ? const Color(0xFF6366F1) : Colors.grey.shade200,
+                                ),
+                              ),
+                              onSelected: (val) {
+                                setModalState(() {
+                                  imageController.text = imagePresets[i]['url']!;
+                                });
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    TextField(
+                      controller: imageController,
+                      decoration: const InputDecoration(
+                        labelText: 'Or Paste Custom Image URL',
+                        hintText: 'https://example.com/food.jpg',
+                      ),
+                      onChanged: (val) {
+                        setModalState(() {});
+                      },
+                    ),
+                    const SizedBox(height: 12),
+
                     TextField(
                       controller: nameController,
                       decoration: const InputDecoration(labelText: 'Food Name'),
@@ -2962,6 +3083,7 @@ class VendorMenuTab extends StatelessWidget {
                       double.parse(priceController.text),
                       descController.text,
                       category,
+                      imageUrl: imageController.text,
                     );
                     Get.back();
                     Get.snackbar('Added!', '${nameController.text} added to your menu list!',

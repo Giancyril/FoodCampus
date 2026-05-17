@@ -436,7 +436,7 @@ class VendorController extends GetxController {
     Get.find<OrderController>().orders.refresh();
   }
 
-  void addNewFoodItem(String stallId, String name, double price, String description, String category) {
+  void addNewFoodItem(String stallId, String name, double price, String description, String category, {String? imageUrl}) {
     var newItem = FoodItem(
       id: 'FD${DateTime.now().millisecondsSinceEpoch}',
       stallId: stallId,
@@ -444,7 +444,9 @@ class VendorController extends GetxController {
       price: price,
       description: description,
       category: category,
-      imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
+      imageUrl: imageUrl != null && imageUrl.trim().isNotEmpty
+          ? imageUrl
+          : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
     );
     Get.find<OrderController>().menuItems.add(newItem);
   }
