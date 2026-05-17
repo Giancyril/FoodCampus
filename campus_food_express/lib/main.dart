@@ -5,7 +5,7 @@ import 'controllers/controllers.dart';
 
 // Custom AppColors to support our premium Emerald theme
 class AppColors {
-  static const Color emerald = Color(0xFF3EBD70); // Vibrant organic green from Foodeli
+  static const Color emerald = Color(0xFF10B981); // Vibrant organic green from Figma design
   static const Color background = Color(0xFFF5F6F6); // Soft off-white clean background
   static const Color textPrimary = Color(0xFF0D121B); // Deep blue-black font
   static const Color textSecondary = Color(0xFF7D8B9B); // Slate-gray secondary font
@@ -600,7 +600,7 @@ class NavigationRequestDestination extends NavigationDestination {
         );
 }
 
-// 2a. CUSTOMER HOME (BROWSE CANTEENS - FOODELI STYLE)
+// 2a. CUSTOMER HOME (BROWSE CANTEENS - FIGMA PREMIUM LAYOUT)
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);
 
@@ -609,438 +609,422 @@ class CustomerHomeScreen extends StatefulWidget {
 }
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
-  String selectedCategory = 'All';
+  String selectedCategory = 'Meals';
 
   @override
   Widget build(BuildContext context) {
     final OrderController orderController = Get.find<OrderController>();
     final AuthController authController = Get.find<AuthController>();
 
-    // Dynamic category items
-    final List<Map<String, dynamic>> categories = [
-      {'name': 'All', 'icon': Icons.restaurant_menu_rounded},
-      {'name': 'Meals', 'icon': Icons.lunch_dining_rounded},
-      {'name': 'Drinks', 'icon': Icons.local_drink_rounded},
-      {'name': 'Snacks', 'icon': Icons.cookie_rounded},
-    ];
+    // Jhonford's Figma Category List (No icons, pure text pills)
+    final List<String> categories = ['Meals', 'Drinks', 'Desserts', 'Snacks'];
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        toolbarHeight: 80,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textSecondary,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Jhonford's Figma Slate Header Banner
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 16,
+                left: 20,
+                right: 20,
+                bottom: 24,
+              ),
+              decoration: const BoxDecoration(
+                color: Color(0xFF131D24), // Elegant dark slate green-gray
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
-              const SizedBox(height: 2),
-              Text(
-                authController.currentUser.value?.name ?? "Student",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textPrimary,
-                  letterSpacing: -0.5,
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          // Search Icon Button
-          Container(
-            margin: const EdgeInsets.only(right: 8, top: 8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.search_rounded, color: AppColors.textPrimary, size: 22),
-              onPressed: () {
-                Get.snackbar(
-                  'Search',
-                  'Search functionality coming soon!',
-                  snackPosition: SnackPosition.TOP,
-                  backgroundColor: Colors.white,
-                  colorText: AppColors.textPrimary,
-                );
-              },
-            ),
-          ),
-          // Notifications Icon Button
-          Container(
-            margin: const EdgeInsets.only(right: 8, top: 8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.notifications_outlined, color: AppColors.textPrimary, size: 22),
-              onPressed: () {
-                Get.snackbar(
-                  'Notifications',
-                  'You have no new notifications.',
-                  snackPosition: SnackPosition.TOP,
-                  backgroundColor: Colors.white,
-                  colorText: AppColors.textPrimary,
-                );
-              },
-            ),
-          ),
-          // Soft Red Logout Icon Button
-          Container(
-            margin: const EdgeInsets.only(right: 16, top: 8),
-            decoration: BoxDecoration(
-              color: Colors.redAccent.withOpacity(0.06),
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.logout_rounded, color: Colors.redAccent, size: 20),
-              onPressed: () {
-                authController.logout();
-                Get.offAll(() => const WelcomeLoginScreen());
-              },
-            ),
-          ),
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-        children: [
-          // Foodeli style banner advertisement
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [AppColors.emerald, AppColors.emerald.withGreen(160)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(26),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.emerald.withOpacity(0.15),
-                  spreadRadius: 2,
-                  blurRadius: 16,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Campus Special Offer',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Good morning,',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.6),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            authController.currentUser.value?.name ?? 'Jhonford!',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        '30% OFF',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: -1.0,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      const Text(
-                        '16 - 31 May • Fresh & Fast',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 18),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: AppColors.emerald,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          elevation: 0,
-                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                        ),
-                        child: const Text(
-                          'Get Now',
-                          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 12),
-                        ),
+                      Row(
+                        children: [
+                          // Bell Notification with Dot
+                          Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF1E2E38),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.notifications_none_rounded, color: Colors.white, size: 22),
+                                  onPressed: () {},
+                                ),
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF10B981),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 10),
+                          // User Circular Initial Avatar
+                          CircleAvatar(
+                            radius: 18,
+                            backgroundColor: const Color(0xFF10B981),
+                            child: Text(
+                              (authController.currentUser.value?.name ?? 'J').substring(0, 1).toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ),
-                // Decorative icon
-                Icon(
-                  Icons.local_pizza_rounded,
-                  size: 96,
-                  color: Colors.white.withOpacity(0.25),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 28),
-
-          // Categories horizontal scrolling selector
-          SizedBox(
-            height: 44,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                var cat = categories[index];
-                bool isCatActive = selectedCategory == cat['name'];
-
-                return Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = cat['name'];
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 180),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: isCatActive ? AppColors.emerald : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          if (!isCatActive)
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.01),
-                              blurRadius: 6,
-                              offset: const Offset(0, 2),
-                            ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            cat['icon'],
-                            color: isCatActive ? Colors.white : AppColors.textSecondary,
-                            size: 15,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            cat['name'],
-                            style: TextStyle(
-                              color: isCatActive ? Colors.white : AppColors.textPrimary,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(height: 28),
-
-          // Header Stalls
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Best Sellers',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textPrimary,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'See All',
-                  style: TextStyle(
-                    color: AppColors.emerald,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-
-          // Stalls list
-          Obx(
-            () {
-              var approvedStalls = orderController.canteens.where((c) => c.isApproved).toList();
-              if (approvedStalls.isEmpty) {
-                return const Center(child: Text('No canteens open currently.'));
-              }
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: approvedStalls.length,
-                itemBuilder: (context, index) {
-                  var stall = approvedStalls[index];
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 20),
+                  const SizedBox(height: 20),
+                  // Search Bar Input
+                  Container(
+                    height: 48,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(26),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.015),
-                          blurRadius: 16,
-                          offset: const Offset(0, 6),
+                      color: const Color(0xFF1E2E38),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Icon(Icons.search_rounded, color: Colors.white.withOpacity(0.4), size: 20),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            style: const TextStyle(color: Colors.white, fontSize: 13),
+                            decoration: InputDecoration(
+                              hintText: 'Search for meals, cafes...',
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.4),
+                                fontSize: 13,
+                              ),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              contentPadding: EdgeInsets.zero,
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(26),
-                      onTap: () => Get.to(() => CustomerMenuScreen(stall: stall)),
+                  ),
+                ],
+              ),
+            ),
+
+            // Premium Promo Banner Card with overlapping Salad Bowl
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF10B981), Color(0xFFEAB308)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(26),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF10B981).withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 16,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 6,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(26)),
-                            child: Image.network(
-                              stall.imageUrl,
-                              height: 170,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                          const Text(
+                            'Campus Lunch\nSpecials',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w900,
+                              height: 1.1,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        stall.name,
-                                        style: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w900,
-                                          color: AppColors.textPrimary,
-                                          letterSpacing: -0.3,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        stall.description,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: AppColors.textSecondary,
-                                          height: 1.4,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.access_time_rounded, color: AppColors.textSecondary, size: 14),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            stall.hours,
-                                            style: const TextStyle(
-                                              fontSize: 11,
-                                              color: AppColors.textSecondary,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          const Icon(Icons.flash_on_rounded, color: Colors.orange, size: 14),
-                                          const SizedBox(width: 2),
-                                          const Text(
-                                            '10-15m prep',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              color: Colors.orange,
-                                              fontWeight: FontWeight.w800,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.emerald.withOpacity(0.08),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          const Icon(Icons.star_rounded, color: Colors.amber, size: 16),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            '${stall.rating}',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              color: AppColors.emerald,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.emerald,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                          const SizedBox(height: 8),
+                          Text(
+                            'Campus Lunch Specials: 20% OFF ALL BOWLS! - Chef Maria\'s',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3,
+                            ),
+                          ),
+                          const SizedBox(height: 18),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF10B981),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              elevation: 0,
+                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                            ),
+                            child: const Text(
+                              'VIEW OFFERS',
+                              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 11),
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      flex: 4,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Horizontal Scrolling Categories Selector
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemBuilder: (context, i) {
+                  String catName = categories[i];
+                  bool isSel = selectedCategory == catName;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedCategory = catName;
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isSel ? const Color(0xFF10B981) : const Color(0xFFF1F5F9),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            catName,
+                            style: TextStyle(
+                              color: isSel ? Colors.white : const Color(0xFF475569),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   );
                 },
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Featured Campus Stalls Heading
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Featured Campus Stalls',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+
+            // Premium Landscape Stall Cards List
+            Obx(() {
+              var approvedStalls = orderController.canteens.where((c) => c.isApproved).toList();
+              if (approvedStalls.isEmpty) {
+                return const Center(child: Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: Text('No campus canteens currently open.'),
+                ));
+              }
+
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: approvedStalls.length,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemBuilder: (context, idx) {
+                  var stall = approvedStalls[idx];
+
+                  // Setup display details mimicking Jhonford's Figma Screenshot
+                  String subtitleText = stall.name.contains('Maria') 
+                      ? 'Campus Center • Western' 
+                      : 'University Plaza • Fast Food';
+                  String ratingText = '${stall.rating} (1.2k+ Reviews)';
+                  String deliveryText = '$$, Fast Delivery (15-20 mins)';
+
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1F5F9), // Light gray background container
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        // Left: Square rounded Food Stall photo
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            stall.imageUrl,
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        // Center: Canteen details
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                stall.name,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFF131D24),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                subtitleText,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF64748B),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star_rounded, color: Colors.amber, size: 14),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    ratingText,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w900,
+                                      color: Color(0xFF131D24),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                deliveryText,
+                                style: const TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF64748B),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Right: Order Now button
+                        const SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () => Get.to(() => CustomerMenuScreen(stall: stall)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF10B981),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 0,
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                          ),
+                          child: const Text(
+                            'Order Now',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
-            },
-          )
-        ],
+            }),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
+  }
+}
   }
 }
 
@@ -2846,58 +2830,354 @@ class VendorOrdersTab extends StatelessWidget {
 }
 
 // 3b. VENDOR TAB: STALL MENU MANAGER
+// 3b. VENDOR TAB: STALL MENU MANAGER (FIGMA HIGH-FIDELITY LAYOUT)
 class VendorMenuTab extends StatelessWidget {
   const VendorMenuTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final OrderController orderController = Get.find<OrderController>();
+    final AuthController authController = Get.find<AuthController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           _showAddNewFoodDialog(context);
         },
-        backgroundColor: const Color(0xFF6366F1),
+        backgroundColor: const Color(0xFF10B981),
         foregroundColor: Colors.white,
-        icon: const Icon(Icons.add),
-        label: const Text('Add Food'),
+        icon: const Icon(Icons.add_rounded),
+        label: const Text('Add Food', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: Obx(
-        () {
-          var myMenuItems = orderController.menuItems.where((i) => i.stallId == 'STL001').toList();
+      body: Obx(() {
+        var myMenuItems = orderController.menuItems.where((i) => i.stallId == 'STL001').toList();
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: myMenuItems.length,
-            itemBuilder: (context, index) {
-              var food = myMenuItems[index];
-              return Card(
-                color: Colors.white,
-                margin: const EdgeInsets.only(bottom: 12),
-                child: ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(food.imageUrl, width: 50, height: 50, fit: BoxFit.cover),
+        return ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            // Dark Slate Header Card Block
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 16,
+                left: 20,
+                right: 20,
+                bottom: 24,
+              ),
+              decoration: const BoxDecoration(
+                color: Color(0xFF131D24), // Elegant dark slate green-gray matching student header
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    authController.currentUser.value?.stallName ?? 'Chef Maria\'s Canteen Stall',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: -0.5,
+                    ),
                   ),
-                  title: Text(food.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('₱${food.price.toStringAsFixed(2)} | ${food.category}'),
-                  trailing: Switch(
-                    value: food.isAvailable,
-                    activeThumbImage: null,
-                    activeColor: const Color(0xFF6366F1),
-                    onChanged: (val) {
-                      food.isAvailable = val;
-                      orderController.menuItems.refresh();
+                  const SizedBox(height: 6),
+                  // Green verified badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF10B981).withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: const Color(0xFF10B981).withOpacity(0.2)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.verified_rounded, color: Color(0xFF10B981), size: 14),
+                        SizedBox(width: 4),
+                        Text(
+                          'Active Authority',
+                          style: TextStyle(
+                            color: Color(0xFF10B981),
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+
+                  // Jhonford's Floating metrics panel container
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1E2E38).withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.15),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Today\'s Sales:',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.5),
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                const Text(
+                                  '₱4,520',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Active Orders:',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.5),
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 6),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF10B981),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Text(
+                                    '8',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 18),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF10B981).withOpacity(0.12),
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(color: const Color(0xFF10B981).withOpacity(0.2)),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'OPEN FOR ORDERS',
+                                      style: TextStyle(
+                                        color: Color(0xFF10B981),
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 11,
+                                        letterSpacing: 0.5,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      width: 8,
+                                      height: 8,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF10B981),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF2E3E4F),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(Icons.settings_rounded, color: Colors.white, size: 20),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Dropdown label: MENU MANAGEMENT
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'MENU MANAGEMENT',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFF131D24),
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  Icon(Icons.keyboard_arrow_down_rounded, color: Color(0xFF131D24)),
+                ],
+              ),
+            ),
+
+            // Jhonford's premium rounded dark-slate list cards
+            myMenuItems.isEmpty
+                ? const Center(child: Text('No menu items created yet.'))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: myMenuItems.length,
+                    itemBuilder: (context, idx) {
+                      var food = myMenuItems[idx];
+
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 14),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E2E38), // Custom dark-slate background
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            // Left: Dish photo
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(14),
+                              child: Image.network(
+                                food.imageUrl,
+                                width: 70,
+                                height: 70,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            // Center: Details
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    food.name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '₱${food.price.toStringAsFixed(0)}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      if (food.isAvailable) ...[
+                                        Container(
+                                          width: 6,
+                                          height: 6,
+                                          decoration: const BoxDecoration(
+                                            color: Color(0xFF10B981),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        const Text(
+                                          'Available',
+                                          style: TextStyle(
+                                            color: Color(0xFF10B981),
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ] else ...[
+                                        const Text(
+                                          'Sold Out',
+                                          style: TextStyle(
+                                            color: Colors.white24,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Right: Edit pencil & Available Switch
+                            const SizedBox(width: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.06),
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                icon: const Icon(Icons.edit_outlined, color: Colors.white70, size: 18),
+                                onPressed: () {},
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Switch(
+                              value: food.isAvailable,
+                              activeColor: const Color(0xFF10B981),
+                              inactiveThumbColor: Colors.grey.shade400,
+                              inactiveTrackColor: Colors.white.withOpacity(0.1),
+                              onChanged: (val) {
+                                food.isAvailable = val;
+                                orderController.menuItems.refresh();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
-                ),
-              );
-            },
-          );
-        },
-      ),
+            const SizedBox(height: 80), // extra padding for fab list scroll
+          ],
+        );
+      }),
     );
   }
 
