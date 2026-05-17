@@ -470,3 +470,62 @@ class AdminController extends GetxController {
     Get.find<OrderController>().canteens.refresh();
   }
 }
+
+class TaskManagerController extends GetxController {
+  var tasks = <TaskModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Pre-populate premium mock tasks mapping to Jhonford's Figma workflow
+    tasks.assignAll([
+      TaskModel(
+        id: 'TSK-101',
+        title: 'Review Figma wireframes & layout',
+        description: 'Verify LoFi Wireframing dashboard, Page 2 and Page 3 layouts for Student Task Manager.',
+        dueDate: DateTime.now(),
+        status: 'completed',
+      ),
+      TaskModel(
+        id: 'TSK-102',
+        title: 'Order lunch from Chef Maria',
+        description: 'Grab a hot Pork Sinigang Soup from Maria\'s Homestyle Meals canteen stall.',
+        dueDate: DateTime.now().add(const Duration(hours: 2)),
+        status: 'in_progress',
+      ),
+      TaskModel(
+        id: 'TSK-103',
+        title: 'Submit software architecture report',
+        description: 'Prepare and format the Google Doc for compiler design deliverables.',
+        dueDate: DateTime.now().add(const Duration(days: 2)),
+        status: 'pending',
+      ),
+    ]);
+  }
+
+  void addTask(String title, String description, DateTime dueDate) {
+    tasks.add(TaskModel(
+      id: 'TSK-${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
+      title: title,
+      description: description,
+      dueDate: dueDate,
+    ));
+    tasks.refresh();
+  }
+
+  void updateTask(String id, String title, String description, DateTime dueDate, String status) {
+    var index = tasks.indexWhere((t) => t.id == id);
+    if (index >= 0) {
+      tasks[index].title = title;
+      tasks[index].description = description;
+      tasks[index].dueDate = dueDate;
+      tasks[index].status = status;
+      tasks.refresh();
+    }
+  }
+
+  void deleteTask(String id) {
+    tasks.removeWhere((t) => t.id == id);
+    tasks.refresh();
+  }
+}
