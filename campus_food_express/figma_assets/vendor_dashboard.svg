@@ -10,126 +10,144 @@
       <stop offset="100%" stop-color="#1E293B"/>
     </linearGradient>
 
-    <!-- Metrics Panel Shadow -->
+    <!-- Card/Panel Shadow -->
     <filter id="panelShadow" x="-10" y="-10" width="410" height="864" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
       <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.12"/>
     </filter>
   </defs>
 
-  <!-- 1. VENDOR HEADER SECTION (MIDNIGHT NAVY GRADIENT) -->
-  <path d="M0 0H390V230C390 246.569 376.569 260 360 260H30C13.4315 260 0 246.569 0 230V0Z" fill="url(#headerGrad)"/>
+  <!-- 1. VENDOR HEADER CARD -->
+  <path d="M0 0H390V210C390 230 370 248 348 248H42C20 248 0 230 0 210V0Z" fill="url(#headerGrad)"/>
 
-  <!-- Status Bar placeholder (Standard iOS-style) -->
-  <text x="32" y="38" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">9:41</text>
-  <g transform="translate(320, 28)" fill="#FFFFFF">
+  <!-- Status Bar placeholder -->
+  <text x="32" y="38" fill="#FFFFFF" fill-opacity="0.6" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <g transform="translate(320, 28)" fill="#FFFFFF" fill-opacity="0.6">
     <path d="M2 3h2v8H2V3zm4-2h2v10H6V1zm4 4h2v6h-2V5zm4-3h2v9h-2V2z"/>
   </g>
 
   <!-- Stall Name Title -->
-  <text x="24" y="86" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="900" letter-spacing="-0.5">Chef Maria's Stall</text>
+  <text x="32" y="86" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.5">Maria's Homestyle Meals</text>
 
   <!-- Verified Badge Chip -->
-  <rect x="24" y="98" width="112" height="22" rx="11" fill="#10B981" fill-opacity="0.12"/>
+  <rect x="32" y="98" width="112" height="22" rx="11" fill="#10B981" fill-opacity="0.12"/>
   <!-- Verified Badge Star Icon -->
-  <path d="M35 109C35 107.5 36.2 106.3 37.7 106.3C39.2 106.3 40.4 107.5 40.4 109C40.4 110.5 39.2 111.7 37.7 111.7C36.2 111.7 35 110.5 35 109ZM37.7 107.5L38.2 108.5H39.2L38.4 109.1L38.7 110.1L37.7 109.5L36.7 110.1L37 109.1L36.2 108.5H37.2L37.7 107.5Z" fill="#10B981"/>
-  <text x="48" y="113" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="800">Active Authority</text>
+  <g transform="translate(42, 102)" fill="#10B981">
+    <path d="M6 1L7.2 4.5H11L8.2 6.5L9.2 10L6 8L2.8 10L3.8 6.5L1 4.5H4.8L6 1Z"/>
+  </g>
+  <text x="56" y="113" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="800">Active Authority</text>
+
+  <!-- Logout Button on header right -->
+  <circle cx="342" cy="92" r="18" fill="#FFFFFF" fill-opacity="0.08"/>
+  <path d="M336 92h8m-3-3l3 3-3 3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M339 87h-3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
 
   <!-- 2. FLOATING METRICS PANEL -->
   <g filter="url(#panelShadow)">
-    <rect x="24" y="136" width="342" height="154" rx="24" fill="#1E2E38" fill-opacity="0.95" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1.5"/>
+    <rect x="32" y="148" width="326" height="154" rx="24" fill="#1E2E38" fill-opacity="0.95" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1.5"/>
   </g>
 
   <!-- Today's Sales label and Value -->
-  <text x="44" y="166" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">TODAY'S SALES:</text>
-  <text x="44" y="202" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="900" letter-spacing="-1.0">₱4,520</text>
+  <text x="52" y="180" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">Today's Sales:</text>
+  <text x="52" y="218" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="900" letter-spacing="-1.0">₱4,745</text>
 
   <!-- Active Orders label and Green Box Count -->
-  <text x="264" y="166" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">ACTIVE ORDERS:</text>
-  <rect x="226" y="174" width="38" height="30" rx="8" fill="#10B981"/>
-  <text x="245" y="195" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="900" text-anchor="middle">8</text>
+  <text x="338" y="180" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">Active Orders:</text>
+  <rect x="290" y="190" width="48" height="36" rx="10" fill="#10B981"/>
+  <text x="314" y="213" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="900" text-anchor="middle">0</text>
 
-  <!-- "OPEN FOR ORDERS" Switch pill status -->
-  <rect x="44" y="222" width="232" height="42" rx="21" fill="#10B981" fill-opacity="0.12" stroke="#10B981" stroke-opacity="0.2"/>
-  <text x="144" y="247" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="900" letter-spacing="0.5" text-anchor="middle">OPEN FOR ORDERS</text>
-  <circle cx="218" cy="243" r="4" fill="#10B981"/>
+  <!-- "OPEN FOR ORDERS" Switch status pill -->
+  <rect x="52" y="238" width="220" height="42" rx="21" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="148" y="263" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="900" letter-spacing="0.5" text-anchor="middle">OPEN FOR ORDERS</text>
+  <circle cx="218" cy="259" r="4.5" fill="#10B981"/>
 
   <!-- Settings Gear Button -->
-  <rect x="288" y="222" width="42" height="42" rx="12" fill="#2E3E4F"/>
+  <rect x="286" y="238" width="42" height="42" rx="12" fill="#2E3E4F"/>
   <!-- Gear Icon -->
-  <path d="M309 238C307.343 238 306 239.343 306 241C306 242.657 307.343 244 309 244C310.657 244 312 242.657 312 241C312 239.343 310.657 238 309 238Z" fill="#FFFFFF"/>
-  <circle cx="309" cy="241" r="5" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+  <g transform="translate(297, 249)" fill="#FFFFFF">
+    <path d="M10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm-7.6 1.7a1 1 0 0 1 1-1h1.2a1 1 0 0 1 1 1c.2.6.5 1.1.9 1.6a1 1 0 0 1 0 1.2l-.8.8a1 1 0 0 1-1.4 0l-1.2-1.2a1 1 0 0 1 0-1.4zm15.2 2.6a1 1 0 0 1 0 1.4l-.8.8a1 1 0 0 1-1.4 0l-1.2-1.2a1 1 0 0 1 0-1.4c.2-.6.5-1.1.9-1.6a1 1 0 0 1 1 0h1.2a1 1 0 0 1 1 1v1z"/>
+  </g>
 
+  <!-- 3. MENU MANAGEMENT HEADER -->
+  <text x="32" y="342" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900" letter-spacing="0.5">MENU MANAGEMENT</text>
+  <!-- Chevron Down -->
+  <path d="M344 336L348 340L352 336" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <!-- 3. MENU MANAGEMENT DROPDOWN HEADER -->
-  <text x="24" y="322" fill="#0F172A" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" letter-spacing="0.5">MENU MANAGEMENT</text>
-  <path d="M354 316L359 321L364 316" stroke="#0F172A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-
-
-  <!-- 4. FIGMA DARK-SLATE MENU ITEM CARDS -->
-  <!-- Dish Card 1 (Available) -->
-  <rect x="24" y="342" width="342" height="92" rx="20" fill="#1E2E38"/>
-  <!-- Image thumbnail -->
-  <rect x="36" y="353" width="70" height="70" rx="14" fill="#475569"/>
-  <text x="71" y="396" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="28" text-anchor="middle">🍗</text>
-  <!-- Description -->
-  <text x="120" y="380" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Adobo Chicken Rice</text>
-  <text x="120" y="402" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱140</text>
-  <circle cx="168" cy="398" r="3" fill="#10B981"/>
-  <text x="176" y="401" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">Available</text>
-  <!-- Edit Pen -->
-  <circle cx="282" cy="388" r="16" fill="#FFFFFF" fill-opacity="0.06"/>
-  <path d="M278 392L286 384L284 382L276 390V392H278Z" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Switch Toggle ON -->
-  <rect x="306" y="374" width="38" height="22" rx="11" fill="#10B981"/>
-  <circle cx="323" cy="385" r="8" fill="#FFFFFF"/>
-
-  <!-- Dish Card 2 (Available) -->
-  <rect x="24" y="448" width="342" height="92" rx="20" fill="#1E2E38"/>
-  <rect x="36" y="459" width="70" height="70" rx="14" fill="#475569"/>
-  <text x="71" y="502" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="28" text-anchor="middle">🍛</text>
-  <text x="120" y="486" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Pork Sisig Meal</text>
-  <text x="120" y="508" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱150</text>
-  <circle cx="168" cy="504" r="3" fill="#10B981"/>
-  <text x="176" y="507" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700">Available</text>
-  <circle cx="282" cy="494" r="16" fill="#FFFFFF" fill-opacity="0.06"/>
-  <path d="M278 498L286 490L284 488L276 496V498H278Z" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="306" y="480" width="38" height="22" rx="11" fill="#10B981"/>
-  <circle cx="323" cy="491" r="8" fill="#FFFFFF"/>
-
-  <!-- Dish Card 3 (Sold Out) -->
-  <rect x="24" y="554" width="342" height="92" rx="20" fill="#1E2E38" stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1"/>
-  <rect x="36" y="565" width="70" height="70" rx="14" fill="#334155"/>
-  <text x="71" y="608" fill="#FFFFFF" fill-opacity="0.4" font-family="Inter, system-ui, sans-serif" font-size="28" text-anchor="middle">🍜</text>
-  <text x="120" y="592" fill="#FFFFFF" fill-opacity="0.5" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Special Ramen Bowl</text>
-  <text x="120" y="614" fill="#FFFFFF" fill-opacity="0.5" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱180</text>
-  <text x="120" y="628" fill="#F87171" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700">Sold Out</text>
-  <circle cx="282" cy="600" r="16" fill="#FFFFFF" fill-opacity="0.04"/>
-  <path d="M278 604L286 596L284 594L276 602V604H278Z" stroke="#64748B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Switch Toggle OFF -->
-  <rect x="306" y="586" width="38" height="22" rx="11" fill="#334155"/>
-  <circle cx="317" cy="597" r="8" fill="#94A3B8"/>
-
-
-  <!-- 5. FLOATING ACTION BUTTON (Add Food in Emerald) -->
+  <!-- 4. MENU ITEM CARDS -->
+  <!-- Dish Card 1: Chicken Adobo Rice Meal (Available) -->
   <g filter="url(#panelShadow)">
-    <rect x="238" y="680" width="128" height="48" rx="24" fill="#10B981"/>
+    <rect x="32" y="362" width="326" height="92" rx="20" fill="#1E2E38"/>
   </g>
-  <path d="M256 704H268M262 698V710" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
-  <text x="312" y="709" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle">Add Food</text>
-
-
-  <!-- Bottom Navigation Bar representation (iOS styled) -->
-  <path d="M0 764H390V844H0V764Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <!-- Thumbnail with Vector Illustration of Adobo -->
+  <rect x="44" y="373" width="70" height="70" rx="14" fill="#FFFFFF"/>
+  <g transform="translate(79, 408)">
+    <circle cx="0" cy="0" r="26" fill="#FEF3C7"/>
+    <circle cx="0" cy="0" r="22" fill="#78350F"/>
+    <circle cx="-6" cy="-4" r="5" fill="#FBBF24"/>
+    <circle cx="6" cy="6" r="4" fill="#FFFFFF" fill-opacity="0.9"/>
+  </g>
+  <text x="126" y="394" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Chicken Adobo Rice Meal</text>
+  <text x="126" y="418" fill="#FFFFFF" fill-opacity="0.8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱95</text>
+  <circle cx="166" cy="414" r="3.5" fill="#10B981"/>
+  <text x="174" y="418" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800">Available</text>
   
-  <!-- Stall Orders Tab -->
-  <g transform="translate(118, 778)" fill="#94A3B8">
+  <!-- Edit Pen Button -->
+  <circle cx="274" cy="408" r="17" fill="#FFFFFF" fill-opacity="0.08"/>
+  <path d="M270 412l7-7l-2-2l-7 7v2z" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Switch Toggle ON -->
+  <rect x="298" y="396" width="42" height="24" rx="12" fill="#10B981"/>
+  <circle cx="310" cy="408" r="9" fill="#FFFFFF"/>
+
+  <!-- Dish Card 2: Pork Sinigang Soup (Available) -->
+  <g filter="url(#panelShadow)">
+    <rect x="32" y="468" width="326" height="92" rx="20" fill="#1E2E38"/>
+  </g>
+  <!-- Thumbnail with Vector Soup Illustration -->
+  <rect x="44" y="479" width="70" height="70" rx="14" fill="#FFFFFF"/>
+  <g transform="translate(79, 514)">
+    <circle cx="0" cy="0" r="26" fill="#DCFCE7"/>
+    <circle cx="0" cy="0" r="22" fill="#15803D"/>
+    <circle cx="-4" cy="-4" r="5" fill="#EF4444"/>
+    <circle cx="6" cy="6" r="4" fill="#FBBF24"/>
+  </g>
+  <text x="126" y="500" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="900">Pork Sinigang Soup</text>
+  <text x="126" y="524" fill="#FFFFFF" fill-opacity="0.8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800">₱110</text>
+  <circle cx="166" cy="520" r="3.5" fill="#10B981"/>
+  <text x="174" y="524" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800">Available</text>
+  
+  <!-- Edit Pen Button -->
+  <circle cx="274" cy="514" r="17" fill="#FFFFFF" fill-opacity="0.08"/>
+  <path d="M270 518l7-7l-2-2l-7 7v2z" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Switch Toggle ON -->
+  <rect x="298" y="502" width="42" height="24" rx="12" fill="#10B981"/>
+  <circle cx="310" cy="514" r="9" fill="#FFFFFF"/>
+
+  <!-- FAB: Add Food Button -->
+  <g filter="url(#panelShadow)">
+    <rect x="230" y="670" width="128" height="48" rx="24" fill="#10B981"/>
+  </g>
+  <path d="M246 694H258M252 688V700" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="302" y="699" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="900" text-anchor="middle">Add Food</text>
+
+  <!-- 5. BOTTOM NAVIGATION BAR (Receipts/Orders, Menu highlighted in purple, Analytics) -->
+  <path d="M0 754H390V844H0V754Z" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+  <!-- Tab 1: Orders (grey receipts list) -->
+  <g transform="translate(62, 776)" fill="#94A3B8">
     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-    <text x="12" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Orders</text>
   </g>
 
-  <!-- Stall Profile Tab -->
-  <g transform="translate(248, 778)" fill="#94A3B8">
-    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-    <text x="12" y="32" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Account</text>
+  <!-- Tab 2: Menu (Selected Active Purple Pill) -->
+  <g transform="translate(145, 768)">
+    <rect x="0" y="0" width="98" height="38" rx="19" fill="#5562EA"/>
+    <!-- Utensils/Menu Icon -->
+    <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V19h2.5v-7.03C11.34 11.84 13 10.12 13 8V2h-2v7zm4-3v5h1.5v8h2v-8H20V2c-2.76 0-5 2.24-5 4z" fill="#FFFFFF" transform="translate(12, 6) Scale(0.9)"/>
+    <text x="64" y="24" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="900">Menu</text>
+  </g>
+
+  <!-- Tab 3: Analytics (grey bar chart) -->
+  <g transform="translate(296, 776)" fill="#94A3B8">
+    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-5h2v5zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
   </g>
 </svg>
