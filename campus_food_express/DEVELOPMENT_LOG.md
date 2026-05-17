@@ -212,3 +212,9 @@ This log details the 50 progressive engineering steps taken to design, build, an
 * **Status:** Completed successfully.
 * **Details:** Implemented, verified, and integrated into core project pipelines.
 
+
+## Step 36: feat: add custom checkout note support for dietary restrictions
+* **Timestamp:** 2026-05-17 08:58:28
+* **Status:** Completed successfully.
+* **Details:** Implemented, verified, and integrated into core project pipelines.
+
