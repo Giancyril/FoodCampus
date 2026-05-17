@@ -920,7 +920,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       ? 'Campus Center • Western' 
                       : 'University Plaza • Fast Food';
                   String ratingText = '${stall.rating} (1.2k+ Reviews)';
-                  String deliveryText = '$$, Fast Delivery (15-20 mins)';
+                  String deliveryText = '\$\$, Fast Delivery (15-20 mins)';
 
                   return Container(
                     margin: const EdgeInsets.only(bottom: 16),
@@ -1023,8 +1023,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         ),
       ),
     );
-  }
-}
   }
 }
 
