@@ -33,10 +33,26 @@ class CampusFoodExpressApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Roboto',
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.emerald,
           primary: AppColors.emerald,
           secondary: const Color(0xFF6366F1), // Indigo
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          focusColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(color: AppColors.emerald, width: 1.5),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
         ),
       ),
       home: const WelcomeLoginScreen(),
@@ -65,322 +81,377 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
 
   bool isRegistering = false;
   String selectedRole = 'customer';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Top Foodeli-style Header
-                Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.emerald.withOpacity(0.08),
-                              spreadRadius: 8,
-                              blurRadius: 24,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Top Foodeli-style Header
+                    Center(
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.emerald.withOpacity(0.08),
+                                  spreadRadius: 8,
+                                  blurRadius: 24,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.local_dining_rounded,
-                          size: 56,
-                          color: AppColors.emerald,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Foodeli',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.textPrimary,
-                          letterSpacing: -1.0,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        'Premium Campus Food & Fast Delivery',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textSecondary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-
-                // Credentials & Form Card
-                Container(
-                  padding: const EdgeInsets.all(28.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(28),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.02),
-                        blurRadius: 20,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          isRegistering ? 'Create Account' : 'Sign In',
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.textPrimary,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          isRegistering
-                              ? 'Join the premium food delivery community'
-                              : 'Welcome back! Please enter your details',
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 28),
-
-                        // Form Fields
-                        if (isRegistering) ...[
-                          TextFormField(
-                            controller: _nameController,
-                            style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                            decoration: InputDecoration(
-                              labelText: 'Full Name',
-                              labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                              prefixIcon: const Icon(Icons.person_outline_rounded, color: AppColors.textSecondary),
-                              filled: true,
-                              fillColor: AppColors.background,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                            child: const Icon(
+                              Icons.local_dining_rounded,
+                              size: 56,
+                              color: AppColors.emerald,
                             ),
-                            validator: (v) => v!.isEmpty ? 'Name is required' : null,
                           ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            controller: _campusIdController,
-                            style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                            decoration: InputDecoration(
-                              labelText: 'Campus ID / Staff ID',
-                              labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                              prefixIcon: const Icon(Icons.badge_outlined, color: AppColors.textSecondary),
-                              filled: true,
-                              fillColor: AppColors.background,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'Foodeli',
+                            style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.textPrimary,
+                              letterSpacing: -1.0,
                             ),
-                            validator: (v) => v!.isEmpty ? 'Campus ID is required' : null,
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 6),
+                          const Text(
+                            'Premium Campus Food & Fast Delivery',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.textSecondary,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ],
-
-                        // Role Selector Dropdown
-                        DropdownButtonFormField<String>(
-                          value: selectedRole,
-                          dropdownColor: Colors.white,
-                          style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                          decoration: InputDecoration(
-                            labelText: isRegistering ? 'Register as...' : 'Sign in as...',
-                            labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                            prefixIcon: const Icon(Icons.supervised_user_circle_outlined, color: AppColors.textSecondary),
-                            filled: true,
-                            fillColor: AppColors.background,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                          ),
-                          items: const [
-                            DropdownMenuItem(value: 'customer', child: Text('Customer / Student')),
-                            DropdownMenuItem(value: 'vendor', child: Text('Vendor / Canteen Stall')),
-                            DropdownMenuItem(value: 'admin', child: Text('Admin / Platform Manager')),
-                          ],
-                          onChanged: (val) {
-                            setState(() {
-                              selectedRole = val!;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 16),
-
-                        if (isRegistering && selectedRole == 'vendor') ...[
-                          TextFormField(
-                            controller: _stallNameController,
-                            style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                            decoration: InputDecoration(
-                              labelText: 'Stall / Canteen Name',
-                              labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                              prefixIcon: const Icon(Icons.storefront_outlined, color: AppColors.textSecondary),
-                              filled: true,
-                              fillColor: AppColors.background,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                            ),
-                            validator: (v) => v!.isEmpty ? 'Stall name is required' : null,
-                          ),
-                          const SizedBox(height: 16),
-                        ],
-
-                        TextFormField(
-                          controller: _emailController,
-                          style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                          decoration: InputDecoration(
-                            labelText: 'Campus Email',
-                            labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                            prefixIcon: const Icon(Icons.email_outlined, color: AppColors.textSecondary),
-                            filled: true,
-                            fillColor: AppColors.background,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                          ),
-                          validator: (v) => v!.isEmpty ? 'Email is required' : null,
-                        ),
-                        const SizedBox(height: 16),
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-                            prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary),
-                            filled: true,
-                            fillColor: AppColors.background,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-                          ),
-                          validator: (v) => v!.isEmpty ? 'Password is required' : null,
-                        ),
-                        const SizedBox(height: 28),
-
-                        // Action Button
-                        SizedBox(
-                          height: 56,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (isRegistering) {
-                                  authController.registerUser(
-                                    _nameController.text,
-                                    _emailController.text,
-                                    selectedRole,
-                                    _campusIdController.text,
-                                    selectedRole == 'vendor' ? _stallNameController.text : null,
-                                  );
-                                  if (selectedRole == 'admin') {
-                                    Get.offAll(() => const AdminMainScreen());
-                                  } else if (selectedRole == 'vendor') {
-                                    Get.offAll(() => const VendorMainScreen());
-                                  } else {
-                                    Get.offAll(() => const CustomerMainScreen());
-                                  }
-                                } else {
-                                  if (selectedRole == 'admin') {
-                                    authController.loginAsAdmin(
-                                      name: 'Admin Dave',
-                                      email: _emailController.text.trim(),
-                                    );
-                                    Get.offAll(() => const AdminMainScreen());
-                                  } else if (selectedRole == 'vendor') {
-                                    authController.loginAsVendor(
-                                      name: 'Chef Maria',
-                                      email: _emailController.text.trim(),
-                                    );
-                                    Get.offAll(() => const VendorMainScreen());
-                                  } else {
-                                    String email = _emailController.text.trim();
-                                    authController.loginAsCustomer(
-                                      email: email,
-                                      campusId: email,
-                                    );
-                                    Get.offAll(() => const CustomerMainScreen());
-                                  }
-                                }
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.emerald,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                              elevation: 0,
-                            ),
-                            child: Text(
-                              isRegistering ? 'Sign Up' : 'Sign In',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                isRegistering = !isRegistering;
-                              });
-                            },
-                            child: Text(
-                              isRegistering
-                                  ? 'Already have an account? Sign In'
-                                  : 'New to Foodeli? Create Account',
-                              style: const TextStyle(
-                                color: AppColors.emerald,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 40),
+
+                    // Credentials & Form Card
+                    Container(
+                      padding: const EdgeInsets.all(28.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(28),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.02),
+                            blurRadius: 20,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              isRegistering ? 'Create Account' : 'Sign In',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.textPrimary,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              isRegistering
+                                  ? 'Join the premium food delivery community'
+                                  : 'Welcome back! Please enter your details',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: AppColors.textSecondary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 28),
+
+                            // Form Fields
+                            if (isRegistering) ...[
+                              TextFormField(
+                                controller: _nameController,
+                                style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                                decoration: InputDecoration(
+                                  labelText: 'Full Name',
+                                  labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                  prefixIcon: const Icon(Icons.person_outline_rounded, color: AppColors.textSecondary),
+                                  filled: true,
+                                  fillColor: AppColors.background,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                ),
+                                validator: (v) => v!.isEmpty ? 'Name is required' : null,
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _campusIdController,
+                                style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                                decoration: InputDecoration(
+                                  labelText: 'Campus ID / Staff ID',
+                                  labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                  prefixIcon: const Icon(Icons.badge_outlined, color: AppColors.textSecondary),
+                                  filled: true,
+                                  fillColor: AppColors.background,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                ),
+                                validator: (v) => v!.isEmpty ? 'Campus ID is required' : null,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+
+                            // Role Selector Dropdown
+                            DropdownButtonFormField<String>(
+                              value: selectedRole,
+                              dropdownColor: Colors.white,
+                              style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                              decoration: InputDecoration(
+                                labelText: isRegistering ? 'Register as...' : 'Sign in as...',
+                                labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                prefixIcon: const Icon(Icons.supervised_user_circle_outlined, color: AppColors.textSecondary),
+                                filled: true,
+                                fillColor: AppColors.background,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                              ),
+                              items: const [
+                                DropdownMenuItem(value: 'customer', child: Text('Customer / Student')),
+                                DropdownMenuItem(value: 'vendor', child: Text('Vendor / Canteen Stall')),
+                                DropdownMenuItem(value: 'admin', child: Text('Admin / Platform Manager')),
+                              ],
+                              onChanged: (val) {
+                                setState(() {
+                                  selectedRole = val!;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16),
+
+                            if (isRegistering && selectedRole == 'vendor') ...[
+                              TextFormField(
+                                controller: _stallNameController,
+                                style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                                decoration: InputDecoration(
+                                  labelText: 'Stall / Canteen Name',
+                                  labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                  prefixIcon: const Icon(Icons.storefront_outlined, color: AppColors.textSecondary),
+                                  filled: true,
+                                  fillColor: AppColors.background,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                                ),
+                                validator: (v) => v!.isEmpty ? 'Stall name is required' : null,
+                              ),
+                              const SizedBox(height: 16),
+                            ],
+
+                            TextFormField(
+                              controller: _emailController,
+                              style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                              decoration: InputDecoration(
+                                  labelText: 'Campus Email',
+                                  labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                  prefixIcon: const Icon(Icons.email_outlined, color: AppColors.textSecondary),
+                                  filled: true,
+                                  fillColor: AppColors.background,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                              ),
+                              validator: (v) => v!.isEmpty ? 'Email is required' : null,
+                            ),
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                                prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary),
+                                filled: true,
+                                fillColor: AppColors.background,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                              ),
+                              validator: (v) => v!.isEmpty ? 'Password is required' : null,
+                            ),
+                            const SizedBox(height: 28),
+
+                            // Action Button
+                            SizedBox(
+                              height: 56,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    Future.delayed(const Duration(milliseconds: 1100), () {
+                                      if (isRegistering) {
+                                        authController.registerUser(
+                                          _nameController.text,
+                                          _emailController.text,
+                                          selectedRole,
+                                          _campusIdController.text,
+                                          selectedRole == 'vendor' ? _stallNameController.text : null,
+                                        );
+                                        if (selectedRole == 'admin') {
+                                          Get.offAll(() => const AdminMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        } else if (selectedRole == 'vendor') {
+                                          Get.offAll(() => const VendorMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        } else {
+                                          Get.offAll(() => const CustomerMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        }
+                                      } else {
+                                        if (selectedRole == 'admin') {
+                                          authController.loginAsAdmin(
+                                            name: 'Admin Dave',
+                                            email: _emailController.text.trim(),
+                                          );
+                                          Get.offAll(() => const AdminMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        } else if (selectedRole == 'vendor') {
+                                          authController.loginAsVendor(
+                                            name: 'Chef Maria',
+                                            email: _emailController.text.trim(),
+                                          );
+                                          Get.offAll(() => const VendorMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        } else {
+                                          String email = _emailController.text.trim();
+                                          authController.loginAsCustomer(
+                                            email: email,
+                                            campusId: email,
+                                          );
+                                          Get.offAll(() => const CustomerMainScreen(), transition: Transition.fadeIn, duration: const Duration(milliseconds: 600));
+                                        }
+                                      }
+                                    });
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.emerald,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                                  elevation: 0,
+                                ),
+                                child: Text(
+                                  isRegistering ? 'Sign Up' : 'Sign In',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+
+                            Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isRegistering = !isRegistering;
+                                  });
+                                },
+                                child: Text(
+                                  isRegistering
+                                      ? 'Already have an account? Sign In'
+                                      : 'New to Foodeli? Create Account',
+                                  style: const TextStyle(
+                                    color: AppColors.emerald,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          if (isLoading)
+            Positioned.fill(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: AppColors.emerald.withOpacity(0.08),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const SizedBox(
+                        width: 56,
+                        height: 56,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 4.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColors.emerald),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    const Text(
+                      'Preparing your dashboard...',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.textPrimary,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      'Sleek experience loading in a snap',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -2442,22 +2513,69 @@ class VendorOrdersTab extends StatelessWidget {
         var myStallOrders = orderController.orders.where((o) => o.stallId == 'STL001').toList();
 
         if (myStallOrders.isEmpty) {
-          return const Center(child: Text('No orders found for your stall.'));
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF6366F1).withOpacity(0.08),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.receipt_long_rounded,
+                      size: 48,
+                      color: Color(0xFF6366F1),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'No orders found',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.textPrimary,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Your canteen stall has no registered transactions in the log.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         }
 
         return DefaultTabController(
           length: 4,
           child: Column(
             children: [
-              const TabBar(
-                indicatorColor: Colors.purple,
-                labelColor: Colors.purple,
-                tabs: [
-                  Tab(text: 'Pending'),
-                  Tab(text: 'Preparing'),
-                  Tab(text: 'Ready'),
-                  Tab(text: 'History'),
-                ],
+              Container(
+                color: Colors.white,
+                child: const TabBar(
+                  indicatorColor: Color(0xFF6366F1),
+                  labelColor: Color(0xFF6366F1),
+                  unselectedLabelColor: AppColors.textSecondary,
+                  labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  tabs: [
+                    Tab(text: 'Pending'),
+                    Tab(text: 'Preparing'),
+                    Tab(text: 'Ready'),
+                    Tab(text: 'History'),
+                  ],
+                ),
               ),
               Expanded(
                 child: TabBarView(
@@ -2481,7 +2599,47 @@ class VendorOrdersTab extends StatelessWidget {
 
     if (list.isEmpty) {
       return Center(
-        child: Text('No orders in ${listType.toUpperCase()} status.'),
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF6366F1).withOpacity(0.08),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.receipt_long_rounded,
+                  size: 48,
+                  color: Color(0xFF6366F1),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'No ${listType.toUpperCase()} orders yet',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.textPrimary,
+                  letterSpacing: -0.3,
+                ),
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'New orders placed by students will stream live onto this dashboard in real-time.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w500,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -2504,7 +2662,7 @@ class VendorOrdersTab extends StatelessWidget {
                     Text('Order: ${order.id}', style: const TextStyle(fontWeight: FontWeight.bold)),
                     Text(
                       '₱${order.total.toStringAsFixed(2)}',
-                      style: const TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: Color(0xFF6366F1), fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -2524,10 +2682,10 @@ class VendorOrdersTab extends StatelessWidget {
                       onPressed: () {
                         vendorController.acceptOrder(order);
                         Get.snackbar('Accepted!', 'Order status changed to Preparing.',
-                            backgroundColor: Colors.purple, colorText: Colors.white);
+                            backgroundColor: const Color(0xFF6366F1), colorText: Colors.white);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple,
+                        backgroundColor: const Color(0xFF6366F1),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Accept Order & Start Cooking'),
@@ -2642,7 +2800,7 @@ class VendorMenuTab extends StatelessWidget {
         onPressed: () {
           _showAddNewFoodDialog(context);
         },
-        backgroundColor: Colors.purple,
+        backgroundColor: const Color(0xFF6366F1),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add),
         label: const Text('Add Food'),
@@ -2669,7 +2827,7 @@ class VendorMenuTab extends StatelessWidget {
                   trailing: Switch(
                     value: food.isAvailable,
                     activeThumbImage: null,
-                    activeColor: Colors.purple,
+                    activeColor: const Color(0xFF6366F1),
                     onChanged: (val) {
                       food.isAvailable = val;
                       orderController.menuItems.refresh();
@@ -2748,9 +2906,9 @@ class VendorMenuTab extends StatelessWidget {
                     );
                     Get.back();
                     Get.snackbar('Added!', '${nameController.text} added to your menu list!',
-                        backgroundColor: Colors.purple, colorText: Colors.white);
+                        backgroundColor: const Color(0xFF6366F1), colorText: Colors.white);
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple, foregroundColor: Colors.white),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6366F1), foregroundColor: Colors.white),
                   child: const Text('Add Item'),
                 )
               ],
@@ -2778,16 +2936,16 @@ class VendorAnalyticsTab extends StatelessWidget {
           children: [
             Expanded(
               child: Card(
-                color: Colors.purple.shade50,
+                color: const Color(0xFF6366F1).withOpacity(0.08),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      const Text('Total Stall Sales', style: TextStyle(color: Colors.purple, fontSize: 13)),
+                      const Text('Total Stall Sales', style: TextStyle(color: Color(0xFF6366F1), fontSize: 13)),
                       const SizedBox(height: 6),
                       Obx(() => Text(
                             '₱${vendorController.totalRevenue.value.toStringAsFixed(2)}',
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.purple),
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF6366F1)),
                           )),
                     ],
                   ),
@@ -2855,7 +3013,7 @@ class VendorAnalyticsTab extends StatelessWidget {
           width: 24,
           height: 120 * heightPct,
           decoration: BoxDecoration(
-            color: Colors.purple,
+            color: const Color(0xFF6366F1),
             borderRadius: BorderRadius.circular(6),
           ),
         ),
@@ -3056,14 +3214,46 @@ class AdminApprovalsTab extends StatelessWidget {
         var unapproved = orderController.canteens.where((c) => !c.isApproved).toList();
 
         if (unapproved.isEmpty) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.check_circle_outline_rounded, size: 64, color: Colors.green),
-                const SizedBox(height: 12),
-                Text('All registered stalls approved!', style: TextStyle(color: Colors.grey)),
-              ],
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEF4444).withOpacity(0.08),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check_circle_outline_rounded,
+                      size: 48,
+                      color: Color(0xFFEF4444),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'All Stalls Approved!',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.textPrimary,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'There are no pending vendor registrations needing your review.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }
@@ -3073,33 +3263,60 @@ class AdminApprovalsTab extends StatelessWidget {
           itemCount: unapproved.length,
           itemBuilder: (context, index) {
             var stall = unapproved[index];
-            return Card(
-              color: Colors.white,
+            return Container(
               margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(18.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(stall.imageUrl, width: 60, height: 60, fit: BoxFit.cover),
+                          borderRadius: BorderRadius.circular(14),
+                          child: Image.network(stall.imageUrl, width: 68, height: 68, fit: BoxFit.cover),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(stall.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              Text(stall.description, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                              Text(
+                                stall.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 16,
+                                  color: AppColors.textPrimary,
+                                  letterSpacing: -0.3,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                stall.description,
+                                style: const TextStyle(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 12,
+                                  height: 1.3,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ],
                           ),
                         )
                       ],
                     ),
-                    const Divider(height: 24),
+                    const Divider(height: 28, color: Color(0xFFF1F5F9)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -3107,11 +3324,18 @@ class AdminApprovalsTab extends StatelessWidget {
                           onPressed: () {
                             adminController.rejectStall(stall);
                             Get.snackbar('Rejected', 'Stall application has been rejected.',
-                                backgroundColor: Colors.red, colorText: Colors.white);
+                                backgroundColor: const Color(0xFFEF4444), colorText: Colors.white);
                           },
-                          child: const Text('Reject', style: TextStyle(color: Colors.red)),
+                          child: const Text(
+                            'Reject',
+                            style: TextStyle(
+                              color: Color(0xFFEF4444),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 16),
                         ElevatedButton(
                           onPressed: () {
                             adminController.approveStall(stall);
@@ -3121,8 +3345,11 @@ class AdminApprovalsTab extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.emerald,
                             foregroundColor: Colors.white,
+                            elevation: 0,
+                            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           ),
-                          child: const Text('Approve Application'),
+                          child: const Text('Approve Application', style: TextStyle(fontWeight: FontWeight.bold)),
                         )
                       ],
                     )
@@ -3152,23 +3379,90 @@ class AdminVendorsListTab extends StatelessWidget {
         itemCount: orderController.canteens.length,
         itemBuilder: (context, index) {
           var stall = orderController.canteens[index];
-          return Card(
-            color: Colors.white,
+          return Container(
             margin: const EdgeInsets.only(bottom: 12),
-            child: ListTile(
-              leading: const Icon(Icons.store_rounded, color: Colors.red),
-              title: Text(stall.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(stall.isApproved ? 'Status: APPROVED & ACTIVE' : 'Status: INACTIVE / SUSPENDED'),
-              trailing: ElevatedButton(
-                onPressed: () {
-                  adminController.toggleStallStatus(stall);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: stall.isApproved ? Colors.orange.shade100 : Colors.green.shade100,
-                  foregroundColor: stall.isApproved ? Colors.orange.shade800 : Colors.green.shade800,
-                  elevation: 0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.02),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
                 ),
-                child: Text(stall.isApproved ? 'Suspend' : 'Activate'),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      stall.imageUrl,
+                      width: 52,
+                      height: 52,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          stall.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 15,
+                            color: AppColors.textPrimary,
+                            letterSpacing: -0.3,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: stall.isApproved 
+                                    ? AppColors.emerald.withOpacity(0.08) 
+                                    : const Color(0xFFEF4444).withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                stall.isApproved ? 'ACTIVE' : 'SUSPENDED',
+                                style: TextStyle(
+                                  color: stall.isApproved ? AppColors.emerald : const Color(0xFFEF4444),
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      adminController.toggleStallStatus(stall);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: stall.isApproved 
+                          ? const Color(0xFFEF4444).withOpacity(0.08) 
+                          : AppColors.emerald.withOpacity(0.08),
+                      foregroundColor: stall.isApproved ? const Color(0xFFEF4444) : AppColors.emerald,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    ),
+                    child: Text(
+                      stall.isApproved ? 'Suspend' : 'Activate',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
@@ -3193,54 +3487,93 @@ class AdminRevenueTab extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Card(
-                color: Colors.red.shade50,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const Text('Total Platform Sales', style: TextStyle(color: Colors.red, fontSize: 13)),
-                      const SizedBox(height: 6),
-                      Obx(() => Text(
-                            '₱${adminController.totalSales.value.toStringAsFixed(2)}',
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.red),
-                          )),
-                    ],
-                  ),
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEF4444).withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xFFEF4444).withOpacity(0.12)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Total Platform Sales',
+                      style: TextStyle(color: Color(0xFFEF4444), fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Obx(() => Text(
+                          '₱${adminController.totalSales.value.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 22,
+                            color: Color(0xFFEF4444),
+                            letterSpacing: -0.5,
+                          ),
+                        )),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 14),
             Expanded(
-              child: Card(
-                color: Colors.green.shade50,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const Text('Platform Commissions (10%)', style: TextStyle(color: Colors.green, fontSize: 12)),
-                      const SizedBox(height: 6),
-                      Obx(() => Text(
-                            '₱${adminController.commissionEarned.value.toStringAsFixed(2)}',
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.green),
-                          )),
-                    ],
-                  ),
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: AppColors.emerald.withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.emerald.withOpacity(0.12)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Commissions (10%)',
+                      style: TextStyle(color: AppColors.emerald, fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Obx(() => Text(
+                          '₱${adminController.commissionEarned.value.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 22,
+                            color: AppColors.emerald,
+                            letterSpacing: -0.5,
+                          ),
+                        )),
+                  ],
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 28),
 
-        const Text('Commission Transaction Ledger', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        const Text(
+          'Commission Transaction Ledger',
+          style: TextStyle(
+            fontWeight: FontWeight.w900,
+            fontSize: 16,
+            color: AppColors.textPrimary,
+            letterSpacing: -0.5,
+          ),
+        ),
         const SizedBox(height: 12),
 
-        Card(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.02),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(18.0),
             child: Table(
               columnWidths: const {
                 0: FlexColumnWidth(2),
@@ -3252,15 +3585,15 @@ class AdminRevenueTab extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(bottom: 12.0),
-                      child: Text('Stall Name', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text('Stall Name', style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.textSecondary, fontSize: 12)),
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 12.0),
-                      child: Text('Sales', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text('Sales', style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.textSecondary, fontSize: 12)),
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 12.0),
-                      child: Text('Commission', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text('Commission', style: TextStyle(fontWeight: FontWeight.w800, color: AppColors.textSecondary, fontSize: 12)),
                     ),
                   ],
                 ),
@@ -3279,18 +3612,24 @@ class AdminRevenueTab extends StatelessWidget {
     return TableRow(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(name, style: const TextStyle(fontSize: 12)),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Text(
+            name,
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text('₱${sales.toStringAsFixed(0)}', style: const TextStyle(fontSize: 12)),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Text(
+            '₱${sales.toStringAsFixed(0)}',
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Text(
             '₱${comm.toStringAsFixed(0)}',
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.green),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.emerald),
           ),
         ),
       ],
