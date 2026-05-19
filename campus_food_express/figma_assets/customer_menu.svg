@@ -1,0 +1,171 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="390" height="844" rx="40" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+
+  <!-- Top Status Bar -->
+  <text x="32" y="32" fill="#0F172A" font-family="System-UI, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <path d="M328 22H338C339.105 22 340 22.8954 340 24V30C340 31.1046 339.105 32 338 32H328C326.895 32 326 31.1046 326 30V24C326 22.8954 326.895 22 328 22Z" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="328" y="24" width="8" height="6" rx="1" fill="#0F172A"/>
+
+  <!-- Header -->
+  <g transform="translate(24, 55)">
+    <!-- Back arrow (Links to student_home.svg) -->
+    <a href="student_home.svg" style="cursor: pointer;">
+      <path d="M0 16H16M0 16L6 10M0 16L6 22" stroke="#1A365D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </a>
+    <text x="32" y="22" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="900">Maria's Homestyle Meals</text>
+  </g>
+
+  <!-- Category Tabs -->
+  <g transform="translate(24, 105)">
+    <!-- Tab 1: Meals (Active Dark Blue) -->
+    <rect width="68" height="34" rx="10" fill="#1A365D"/>
+    <text x="34" y="21" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="12" font-weight="800">Meals</text>
+
+    <!-- Tab 2: Snacks -->
+    <rect x="76" width="76" height="34" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="114" y="21" text-anchor="middle" fill="#64748B" font-family="'Inter', sans-serif" font-size="12" font-weight="700">Snacks</text>
+
+    <!-- Tab 3: Drinks -->
+    <rect x="160" width="76" height="34" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="198" y="21" text-anchor="middle" fill="#64748B" font-family="'Inter', sans-serif" font-size="12" font-weight="700">Drinks</text>
+
+    <!-- Tab 4: Desserts -->
+    <rect x="244" width="84" height="34" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="286" y="21" text-anchor="middle" fill="#64748B" font-family="'Inter', sans-serif" font-size="12" font-weight="700">Desserts</text>
+  </g>
+
+  <!-- Menu Item list -->
+  <!-- Item 1 (Chicken Adobo) -->
+  <g transform="translate(24, 160)">
+    <rect width="342" height="96" rx="20" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <!-- Colored Food Illustration -->
+    <g transform="translate(12, 12)">
+      <rect width="72" height="72" rx="14" fill="#FEF3C7"/>
+      <!-- Bowl illustration -->
+      <path d="M12 48C12 58 20 62 36 62C52 62 60 58 60 48H12Z" fill="#D97706"/>
+      <!-- Rice inside bowl -->
+      <ellipse cx="36" cy="45" rx="22" ry="6" fill="#F8FAFC"/>
+      <!-- Adobo chicken chunk -->
+      <rect x="24" y="32" width="16" height="12" rx="4" fill="#78350F"/>
+      <!-- Boiled egg slice -->
+      <circle cx="46" cy="36" r="8" fill="#FFFFFF"/>
+      <circle cx="46" cy="36" r="4.5" fill="#F59E0B"/>
+    </g>
+    <text x="98" y="36" fill="#0F172A" font-family="'Inter', sans-serif" font-size="15" font-weight="800">Chicken Adobo Rice Meal</text>
+    <text x="98" y="56" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">₱95.00</text>
+    
+    <!-- Add Button (Links to item_details_sheet.svg) -->
+    <a href="item_details_sheet.svg" style="cursor: pointer;">
+      <g transform="translate(290, 28)">
+        <circle cx="20" cy="20" r="20" fill="#1A365D"/>
+        <path d="M14 20H26M20 14V26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </a>
+  </g>
+
+  <!-- Item 2 (Pork Sinigang) -->
+  <g transform="translate(24, 272)">
+    <rect width="342" height="96" rx="20" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <!-- Colored Food Illustration -->
+    <g transform="translate(12, 12)">
+      <rect width="72" height="72" rx="14" fill="#ECFDF5"/>
+      <!-- Bowl illustration -->
+      <path d="M12 48C12 58 20 62 36 62C52 62 60 58 60 48H12Z" fill="#059669"/>
+      <!-- Sour soup liquid -->
+      <ellipse cx="36" cy="45" rx="22" ry="6" fill="#F59E0B" fill-opacity="0.3"/>
+      <!-- Pork riblet -->
+      <rect x="22" y="34" width="14" height="10" rx="3" fill="#B45309"/>
+      <!-- Tomato slice -->
+      <circle cx="44" cy="36" r="6" fill="#EF4444"/>
+      <!-- Green chili pepper -->
+      <path d="M32 26Q36 28 38 32" stroke="#10B981" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </g>
+    <text x="98" y="36" fill="#0F172A" font-family="'Inter', sans-serif" font-size="15" font-weight="800">Pork Sinigang Soup</text>
+    <text x="98" y="56" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">₱110.00</text>
+    <!-- Add Button -->
+    <g transform="translate(290, 28)">
+      <circle cx="20" cy="20" r="20" fill="#1A365D"/>
+      <path d="M14 20H26M20 14V26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Item 3 (Bicol Express) -->
+  <g transform="translate(24, 384)">
+    <rect width="342" height="96" rx="20" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <!-- Colored Food Illustration -->
+    <g transform="translate(12, 12)">
+      <rect width="72" height="72" rx="14" fill="#FEF2F2"/>
+      <!-- Bowl illustration -->
+      <path d="M12 48C12 58 20 62 36 62C52 62 60 58 60 48H12Z" fill="#DC2626"/>
+      <!-- Creamy spicy sauce -->
+      <ellipse cx="36" cy="45" rx="22" ry="6" fill="#FEF3C7"/>
+      <!-- Chili pepper slice -->
+      <circle cx="30" cy="36" r="6" fill="#EF4444"/>
+      <circle cx="42" cy="38" r="6" fill="#10B981"/>
+    </g>
+    <text x="98" y="36" fill="#0F172A" font-family="'Inter', sans-serif" font-size="15" font-weight="800">Bicol Express Rice Meal</text>
+    <text x="98" y="56" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">₱105.00</text>
+    <!-- Add Button -->
+    <g transform="translate(290, 28)">
+      <circle cx="20" cy="20" r="20" fill="#1A365D"/>
+      <path d="M14 20H26M20 14V26" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Floating Bottom Cart Summary Bar (Links to cart.svg) -->
+  <a href="cart.svg" style="cursor: pointer;">
+    <g transform="translate(16, 680)">
+      <rect width="358" height="66" rx="20" fill="#1A365D"/>
+      <!-- Cart Icon -->
+      <g transform="translate(18, 18)">
+        <path d="M4 4H7L9 14H17L19 6H8" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="10" cy="17" r="1.5" fill="#FFFFFF"/>
+        <circle cx="16" cy="17" r="1.5" fill="#FFFFFF"/>
+      </g>
+      <text x="56" y="38" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="14" font-weight="800">1 Item Added</text>
+      
+      <!-- Checkout label and Arrow -->
+      <text x="290" y="38" text-anchor="end" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="14" font-weight="800">VIEW CART</text>
+      <path d="M306 32L312 38L306 44" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </a>
+
+  <!-- Navigation Bar capsule matching Figma layout -->
+  <g transform="translate(24, 762)">
+    <rect width="342" height="60" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    
+    <!-- Home Tab -->
+    <a href="student_home.svg" style="cursor: pointer;">
+      <g transform="translate(28, 10)">
+        <path d="M10 20V12H14V20H19V10L12 3L5 10V20H10Z" fill="#7D8B9B"/>
+      </g>
+    </a>
+
+    <!-- Cart Tab (Active Dark Blue) -->
+    <a href="cart.svg" style="cursor: pointer;">
+      <g transform="translate(112, 10)">
+        <path d="M4 4H7L9 14H17L19 6H8" stroke="#1A365D" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="10" cy="17" r="1.5" fill="#1A365D"/>
+        <circle cx="16" cy="17" r="1.5" fill="#1A365D"/>
+        <circle cx="21" cy="4" r="5" fill="#EF4444"/>
+        <text x="21" y="7" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="8" font-weight="900">1</text>
+      </g>
+    </a>
+
+    <!-- Track Status Tab -->
+    <a href="active_order_status.svg" style="cursor: pointer;">
+      <g transform="translate(204, 10)">
+        <rect x="4" y="4" width="16" height="16" rx="3" stroke="#7D8B9B" stroke-width="2.5"/>
+        <circle cx="12" cy="12" r="3" fill="#7D8B9B"/>
+      </g>
+    </a>
+
+    <!-- Profile/History Tab -->
+    <a href="order_history.svg" style="cursor: pointer;">
+      <g transform="translate(288, 10)">
+        <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.33 4 18V20H20V18C20 15.33 14.67 14 12 14Z" fill="#7D8B9B"/>
+      </g>
+    </a>
+  </g>
+</svg>

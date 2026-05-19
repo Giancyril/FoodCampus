@@ -6,7 +6,7 @@
   <defs>
     <!-- Logo Shadow -->
     <filter id="logoShadow" x="-20" y="-20" width="140" height="140" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#10B981" flood-opacity="0.08"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1A365D" flood-opacity="0.08"/>
     </filter>
     
     <!-- Card Shadow -->
@@ -24,15 +24,15 @@
   <!-- 1. FOODELI TOP LOGO SECTION -->
   <g filter="url(#logoShadow)" transform="translate(145, 68)">
     <circle cx="50" cy="50" r="50" fill="#FFFFFF"/>
-    <!-- Utensils Cross Icon in Emerald -->
-    <path d="M36 30C36 26 38 24 41 24V46H38V52H36V30Z" fill="#10B981"/>
-    <path d="M49 24C52 24 54 26 54 30V52H52V46H49V24Z" fill="#10B981"/>
-    <rect x="44" y="24" width="3" height="34" rx="1.5" fill="#10B981"/>
-    <path d="M60 24C62 24 64 26 64 30V40H61V58H58V40H56V30C56 26 58 24 60 24Z" fill="#10B981"/>
+    <!-- Utensils Cross Icon in Deep Navy -->
+    <path d="M36 30C36 26 38 24 41 24V46H38V52H36V30Z" fill="#1A365D"/>
+    <path d="M49 24C52 24 54 26 54 30V52H52V46H49V24Z" fill="#1A365D"/>
+    <rect x="44" y="24" width="3" height="34" rx="1.5" fill="#1A365D"/>
+    <path d="M60 24C62 24 64 26 64 30V40H61V58H58V40H56V30C56 26 58 24 60 24Z" fill="#1A365D"/>
   </g>
 
   <!-- App Title -->
-  <text x="195" y="202" fill="#0D121B" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="900" letter-spacing="-1.0" text-anchor="middle">Foodeli</text>
+  <text x="195" y="202" fill="#0D121B" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="900" letter-spacing="-1.0" text-anchor="middle">Campus Food Express</text>
   <text x="195" y="222" fill="#7D8B9B" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Premium Campus Food &amp; Fast Delivery</text>
 
   <!-- 2. LOGIN FORM CARD CONTAINER -->
@@ -70,20 +70,20 @@
 
   <!-- Remember Me & Forgot Password -->
   <!-- Checkbox -->
-  <rect x="52" y="608" width="16" height="16" rx="4" fill="#10B981"/>
+  <rect x="52" y="608" width="16" height="16" rx="4" fill="#1A365D"/>
   <path d="M56 616L58.5 618.5L64 613" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="76" y="621" fill="#7D8B9B" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">Remember me</text>
   
   <!-- Forgot Password Link -->
-  <text x="338" y="621" fill="#10B981" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">Forgot Password?</text>
+  <text x="338" y="621" fill="#1A365D" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">Forgot Password?</text>
 
   <!-- 3. ACTION BUTTONS -->
-  <!-- Sign In Button (Emerald) -->
-  <rect x="52" y="648" width="286" height="52" rx="16" fill="#10B981"/>
+  <!-- Sign In Button (Deep Navy) -->
+  <rect x="52" y="648" width="286" height="52" rx="16" fill="#1A365D"/>
   <text x="195" y="680" fill="#FFFFFF" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="900" letter-spacing="-0.2" text-anchor="middle">Sign In</text>
 
   <!-- Bottom Register Link -->
   <text x="195" y="774" fill="#7D8B9B" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">
-    Don't have an account? <tspan fill="#10B981" font-weight="800">Sign Up</tspan>
+    Don't have an account? <tspan fill="#1A365D" font-weight="800">Sign Up</tspan>
   </text>
 </svg>

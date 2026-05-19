@@ -62,14 +62,26 @@ class CartItem {
   final FoodItem foodItem;
   int quantity;
   String notes;
+  List<String> addOns;
 
   CartItem({
     required this.foodItem,
     required this.quantity,
     this.notes = '',
+    this.addOns = const [],
   });
 
-  double get total => foodItem.price * quantity;
+  double get addOnsPrice {
+    double price = 0.0;
+    for (var addon in addOns) {
+      if (addon.contains('Extra Chicken')) price += 30.0;
+      if (addon.contains('Extra Rice')) price += 20.0;
+      if (addon.contains('Extra Sauce')) price += 10.0;
+    }
+    return price;
+  }
+
+  double get total => (foodItem.price + addOnsPrice) * quantity;
 }
 
 class OrderModel {

@@ -1,0 +1,72 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="390" height="844" rx="40" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+
+  <!-- Status Bar -->
+  <text x="32" y="32" fill="#0F172A" font-family="System-UI, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <path d="M328 22H338C339.105 22 340 22.8954 340 24V30C340 31.1046 339.105 32 338 32H328C326.895 32 326 31.1046 326 30V24C326 22.8954 326.895 22 328 22Z" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="328" y="24" width="8" height="6" rx="1" fill="#0F172A"/>
+
+  <!-- Header -->
+  <g transform="translate(24, 55)">
+    <!-- Back arrow links to student_home.svg -->
+    <a href="student_home.svg" style="cursor: pointer;">
+      <path d="M0 16H16M0 16L6 10M0 16L6 22" stroke="#1A365D" stroke-width="2.5" stroke-linecap="round"/>
+    </a>
+    <text x="32" y="22" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="900">Rate Order</text>
+  </g>
+
+  <!-- Vendor Card -->
+  <g transform="translate(24, 105)">
+    <rect width="342" height="96" rx="20" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <g transform="translate(16, 16)">
+      <rect width="64" height="64" rx="12" fill="#FEF3C7"/>
+      <path d="M14 42C14 50 20 52 31 52C42 52 48 50 48 42H14Z" fill="#D97706"/>
+      <circle cx="31" cy="30" r="10" fill="#FFFFFF"/>
+    </g>
+    <text x="96" y="38" fill="#0F172A" font-family="'Inter', sans-serif" font-size="15" font-weight="800">Maria's Homestyle Meals</text>
+    <text x="96" y="58" fill="#64748B" font-family="'Inter', sans-serif" font-size="12" font-weight="500">Order ID: #CFE-1061</text>
+    <text x="96" y="74" fill="#64748B" font-family="'Inter', sans-serif" font-size="12" font-weight="500">Delivered on 12:22 PM</text>
+  </g>
+
+  <!-- Main Question -->
+  <text x="195" y="245" text-anchor="middle" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="18" font-weight="800">How was the food and service?</text>
+  <text x="195" y="265" text-anchor="middle" fill="#7D8B9B" font-family="'Inter', sans-serif" font-size="13" font-weight="500">Your rating helps improve the campus canteens.</text>
+
+  <!-- Stars (Selected 5 Stars Gold Accent) -->
+  <g transform="translate(90, 290)">
+    <!-- Star 1 -->
+    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+    
+    <!-- Star 2 -->
+    <path d="M48 2L51.09 8.26L58 9.27L53 14.14L54.18 21.02L48 17.77L41.82 21.02L43 14.14L38 9.27L44.91 8.26L48 2Z" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+
+    <!-- Star 3 -->
+    <path d="M84 2L87.09 8.26L94 9.27L89 14.14L90.18 21.02L84 17.77L77.82 21.02L79 14.14L74 9.27L80.91 8.26L84 2Z" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+
+    <!-- Star 4 -->
+    <path d="M120 2L123.09 8.26L130 9.27L125 14.14L126.18 21.02L120 17.77L113.82 21.02L115 14.14L110 9.27L116.91 8.26L120 2Z" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+
+    <!-- Star 5 -->
+    <path d="M156 2L159.09 8.26L166 9.27L161 14.14L162.18 21.02L156 17.77L149.82 21.02L151 14.14L146 9.27L152.91 8.26L156 2Z" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+  </g>
+
+  <!-- Interactive Text Feedback Box -->
+  <g transform="translate(24, 370)">
+    <rect width="342" height="150" rx="20" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="18" y="32" fill="#0F172A" font-family="'Inter', sans-serif" font-size="14" font-weight="500">The Chicken Adobo was exceptionally tender, and the extra sauce</text>
+    <text x="18" y="52" fill="#0F172A" font-family="'Inter', sans-serif" font-size="14" font-weight="500">was perfect! Fast delivery to the Lobby bench.</text>
+    <text x="18" y="132" fill="#7D8B9B" font-family="'Inter', sans-serif" font-size="10" font-weight="700" letter-spacing="0.5">WRITE YOUR COMMENTS...</text>
+  </g>
+
+  <!-- Direct Submit Button (Links back to student_home.svg) -->
+  <a href="student_home.svg" style="cursor: pointer;">
+    <g transform="translate(24, 660)">
+      <rect width="342" height="56" rx="18" fill="#1A365D"/>
+      <text x="171" y="34" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" font-weight="800" letter-spacing="-0.2">SUBMIT REVIEW</text>
+    </g>
+  </a>
+
+  <!-- Bottom Home bar -->
+  <rect x="125" y="824" width="140" height="5" rx="2.5" fill="#0F172A" fill-opacity="0.2"/>
+</svg>

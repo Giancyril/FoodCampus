@@ -1,0 +1,60 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="390" height="844" rx="40" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+
+  <!-- Top Status Bar -->
+  <text x="32" y="32" fill="#0F172A" font-family="System-UI, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <path d="M328 22H338C339.105 22 340 22.8954 340 24V30C340 31.1046 339.105 32 338 32H328C326.895 32 326 31.1046 326 30V24C326 22.8954 326.895 22 328 22Z" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="328" y="24" width="8" height="6" rx="1" fill="#0F172A"/>
+
+  <!-- Success Icon and headline -->
+  <g transform="translate(45, 120)">
+    <!-- Success double-ring checkmark icon in Green -->
+    <circle cx="150" cy="80" r="48" fill="#ECFDF5"/>
+    <circle cx="150" cy="80" r="38" fill="#10B981"/>
+    <!-- Checkmark -->
+    <path d="M140 80L147 87L161 73" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <text x="150" y="162" text-anchor="middle" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="24" font-weight="900" letter-spacing="-0.5">Order Confirmed!</text>
+    <text x="150" y="186" text-anchor="middle" fill="#7D8B9B" font-family="'Inter', sans-serif" font-size="14" font-weight="500">Your order has been sent to the canteen.</text>
+  </g>
+
+  <!-- Confirmation Details card -->
+  <g transform="translate(24, 348)">
+    <rect width="342" height="184" rx="24" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    
+    <g transform="translate(20, 20)">
+      <!-- Order ID -->
+      <text x="0" y="18" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Order ID</text>
+      <text x="302" y="18" text-anchor="end" fill="#0F172A" font-family="'Inter', sans-serif" font-size="14" font-weight="800">#CFE-1061</text>
+      
+      <!-- Canteen Stall name -->
+      <text x="0" y="54" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Canteen Stall</text>
+      <text x="302" y="54" text-anchor="end" fill="#1A365D" font-family="'Inter', sans-serif" font-size="14" font-weight="800">Maria's Homestyle Meals</text>
+
+      <!-- Estimated time -->
+      <text x="0" y="90" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Estimated Pick-up</text>
+      <text x="302" y="90" text-anchor="end" fill="#0F172A" font-family="'Inter', sans-serif" font-size="14" font-weight="800">20-30 mins</text>
+      
+      <!-- Price paid -->
+      <text x="0" y="126" fill="#64748B" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Total Basket Cost</text>
+      <text x="302" y="126" text-anchor="end" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="18" font-weight="900">₱125.00</text>
+    </g>
+  </g>
+
+  <!-- Button: VIEW ORDER (Links to active_order_status.svg) -->
+  <a href="active_order_status.svg" style="cursor: pointer;">
+    <g transform="translate(24, 574)">
+      <rect width="342" height="54" rx="16" fill="#1A365D"/>
+      <text x="171" y="32" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.2">VIEW ORDER</text>
+    </g>
+  </a>
+
+  <!-- Button: BACK TO HOME (Links to student_home.svg) -->
+  <a href="student_home.svg" style="cursor: pointer;">
+    <g transform="translate(24, 644)">
+      <rect width="342" height="54" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+      <text x="171" y="32" text-anchor="middle" fill="#1A365D" font-family="'Inter', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.2">BACK TO HOME</text>
+    </g>
+  </a>
+</svg>

@@ -7,6 +7,7 @@ import '../models/models.dart';
 class AuthController extends GetxController {
   var currentUser = Rxn<UserProfile>();
   var isLoggedIn = false.obs;
+  var authToken = ''.obs;
 
   static const String _apiBase = "http://127.0.0.1:8000/api";
   late SharedPreferences _prefs;
@@ -21,6 +22,8 @@ class AuthController extends GetxController {
     _prefs = await SharedPreferences.getInstance();
     // Load previously stored active user session if any
     String? storedUser = _prefs.getString('current_user');
+    authToken.value = _prefs.getString('auth_token') ?? '';
+    
     if (storedUser != null) {
       try {
         var decoded = json.decode(storedUser);
@@ -50,8 +53,8 @@ class AuthController extends GetxController {
 
     // Direct student ID / email mock database mapping
     Map<String, String> studentDatabase = {
-      '20221270': 'Mary Jane',
-      '20221270@campus.edu': 'Mary Jane',
+      '20221270': 'Jhonlord Dagasuan',
+      '20221270@campus.edu': 'Jhonlord Dagasuan',
       '20231004': 'John Doe',
       '20231004@campus.edu': 'John Doe',
       '20221234': 'Alice Smith',
@@ -84,9 +87,12 @@ class AuthController extends GetxController {
     try {
       final response = await http.post(
         Uri.parse('$_apiBase/login'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode({'email': email, 'password': password}),
-      ).timeout(const Duration(seconds: 3));
+      ).timeout(const Duration(seconds: 4));
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
@@ -100,8 +106,14 @@ class AuthController extends GetxController {
             campusId: u['campus_id'] ?? 'N/A',
             stallName: u['stall_name'],
           );
+          authToken.value = data['token'] ?? '';
+          await _prefs.setString('auth_token', authToken.value);
           isLoggedIn.value = true;
           await _saveUserSession();
+          
+          // Trigger dynamic database sync
+          Get.find<OrderController>().fetchCanteensFromApi();
+          Get.find<OrderController>().fetchOrdersFromApi();
           return true;
         }
       }
@@ -113,7 +125,10 @@ class AuthController extends GetxController {
     try {
       final response = await http.post(
         Uri.parse('$_apiBase/register'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: json.encode({
           'name': name,
           'email': email,
@@ -122,7 +137,7 @@ class AuthController extends GetxController {
           'campus_id': campusId,
           'stall_name': stallName,
         }),
-      ).timeout(const Duration(seconds: 3));
+      ).timeout(const Duration(seconds: 4));
 
       if (response.statusCode == 201) {
         var data = json.decode(response.body);
@@ -136,8 +151,13 @@ class AuthController extends GetxController {
             campusId: u['campus_id'] ?? 'N/A',
             stallName: u['stall_name'],
           );
+          authToken.value = data['token'] ?? '';
+          await _prefs.setString('auth_token', authToken.value);
           isLoggedIn.value = true;
           await _saveUserSession();
+          
+          Get.find<OrderController>().fetchCanteensFromApi();
+          Get.find<OrderController>().fetchOrdersFromApi();
           return true;
         }
       }
@@ -171,37 +191,40 @@ class AuthController extends GetxController {
     }
 
     currentUser.value = UserProfile(
-      id: 'USR001',
+      id: '1', // STL001 corresponding customer ID or general customer ID
       name: finalName,
       email: inputEmail,
       role: 'customer',
       campusId: campusId ?? '2023-10042',
     );
+    authToken.value = 'MOCK_TOKEN';
     isLoggedIn.value = true;
     _saveUserSession();
   }
 
   void loginAsVendor({String? name, String? email, String? campusId, String? stallName}) {
     currentUser.value = UserProfile(
-      id: 'USR002',
+      id: '2', // STL001 corresponding vendor ID
       name: name ?? 'Chef Maria',
       email: email ?? 'maria.stalls@campus.edu',
       role: 'vendor',
       campusId: campusId ?? 'VND-7782',
       stallName: stallName ?? 'Maria\'s Homestyle Meals',
     );
+    authToken.value = 'MOCK_TOKEN';
     isLoggedIn.value = true;
     _saveUserSession();
   }
 
   void loginAsAdmin({String? name, String? email, String? campusId}) {
     currentUser.value = UserProfile(
-      id: 'USR003',
-      name: name ?? 'Admin Dave',
+      id: '3',
+      name: name ?? 'Superuser Authority',
       email: email ?? 'admin.dave@campus.edu',
       role: 'admin',
       campusId: campusId ?? 'ADM-0001',
     );
+    authToken.value = 'MOCK_TOKEN';
     isLoggedIn.value = true;
     _saveUserSession();
   }
@@ -209,7 +232,9 @@ class AuthController extends GetxController {
   void logout() {
     currentUser.value = null;
     isLoggedIn.value = false;
+    authToken.value = '';
     _prefs.remove('current_user');
+    _prefs.remove('auth_token');
   }
 
   void registerUser(String name, String email, String role, String campusId, String? stallName) {
@@ -221,6 +246,7 @@ class AuthController extends GetxController {
       campusId: campusId,
       stallName: stallName,
     );
+    authToken.value = 'MOCK_TOKEN';
     isLoggedIn.value = true;
     _saveUserSession();
   }
@@ -234,8 +260,13 @@ class CartController extends GetxController {
   double get total => subtotal + tax;
   int get itemCount => cartItems.fold(0, (sum, item) => sum + item.quantity);
 
-  void addToCart(FoodItem item, int quantity, String notes) {
-    var existingIndex = cartItems.indexWhere((element) => element.foodItem.id == item.id);
+  void addToCart(FoodItem item, int quantity, String notes, [List<String> addOns = const []]) {
+    var existingIndex = cartItems.indexWhere((element) {
+      if (element.foodItem.id != item.id) return false;
+      if (element.addOns.length != addOns.length) return false;
+      return element.addOns.every((addon) => addOns.contains(addon));
+    });
+
     if (existingIndex >= 0) {
       cartItems[existingIndex].quantity += quantity;
       if (notes.isNotEmpty) {
@@ -243,7 +274,7 @@ class CartController extends GetxController {
       }
       cartItems.refresh();
     } else {
-      cartItems.add(CartItem(foodItem: item, quantity: quantity, notes: notes));
+      cartItems.add(CartItem(foodItem: item, quantity: quantity, notes: notes, addOns: addOns));
     }
   }
 
@@ -269,17 +300,20 @@ class OrderController extends GetxController {
   var orders = <OrderModel>[].obs;
   var canteens = <CanteenStall>[].obs;
   var menuItems = <FoodItem>[].obs;
+  var isLoadingOrders = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     loadMockData();
+    fetchCanteensFromApi();
+    fetchOrdersFromApi();
   }
 
   void loadMockData() {
     canteens.assignAll([
       CanteenStall(
-        id: 'STL001',
+        id: '1', // Match backend stall auto-increment ID
         name: 'Maria\'s Homestyle Meals',
         description: 'Authentic and affordable Filipino home-cooked meals.',
         imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',
@@ -288,7 +322,7 @@ class OrderController extends GetxController {
         isApproved: true,
       ),
       CanteenStall(
-        id: 'STL002',
+        id: '2',
         name: 'Wok & Roll Express',
         description: 'Fast, fresh wok dishes and modern Asian street food.',
         imageUrl: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400',
@@ -297,7 +331,7 @@ class OrderController extends GetxController {
         isApproved: true,
       ),
       CanteenStall(
-        id: 'STL003',
+        id: '3',
         name: 'The Green Fork',
         description: 'Healthy salads, wraps, fresh pressed juices and fruit cups.',
         imageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
@@ -310,8 +344,8 @@ class OrderController extends GetxController {
     menuItems.assignAll([
       // Maria's Meals
       FoodItem(
-        id: 'FD001',
-        stallId: 'STL001',
+        id: '1', // Match backend ID
+        stallId: '1',
         name: 'Chicken Adobo Rice Meal',
         price: 95.0,
         description: 'Tender chicken marinated in soy sauce, vinegar, and garlic, served with rice.',
@@ -319,8 +353,8 @@ class OrderController extends GetxController {
         imageUrl: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=300',
       ),
       FoodItem(
-        id: 'FD002',
-        stallId: 'STL001',
+        id: '2',
+        stallId: '1',
         name: 'Pork Sinigang Soup',
         price: 110.0,
         description: 'Sour tamarind soup cooked with pork riblets and fresh campus vegetables.',
@@ -328,18 +362,27 @@ class OrderController extends GetxController {
         imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
       ),
       FoodItem(
-        id: 'FD003',
-        stallId: 'STL001',
-        name: 'Iced Sweet Melon Juice',
-        price: 35.0,
-        description: 'Freshly shredded melon juice served over crushed ice.',
+        id: '3',
+        stallId: '1',
+        name: 'Mango Shake',
+        price: 55.0,
+        description: 'Freshly blended sweet ripe mangoes with milk and crushed ice.',
         category: 'Drinks',
-        imageUrl: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=300',
+        imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
+      ),
+      FoodItem(
+        id: '7',
+        stallId: '1',
+        name: 'Bicol Express Rice Meal',
+        price: 105.0,
+        description: 'Pork strips cooked in coconut milk and spicy chili peppers, served with rice.',
+        category: 'Meals',
+        imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
       ),
       // Wok & Roll
       FoodItem(
-        id: 'FD004',
-        stallId: 'STL002',
+        id: '4',
+        stallId: '2',
         name: 'Spicy Beef Fried Noodles',
         price: 120.0,
         description: 'Stir-fried egg noodles with tender beef strips, cabbage, and chili sauce.',
@@ -347,8 +390,8 @@ class OrderController extends GetxController {
         imageUrl: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=300',
       ),
       FoodItem(
-        id: 'FD005',
-        stallId: 'STL002',
+        id: '5',
+        stallId: '2',
         name: 'Crispy Pork Lumpia (5pcs)',
         price: 50.0,
         description: 'Golden deep-fried spring rolls stuffed with pork and served with sweet chili sauce.',
@@ -357,8 +400,8 @@ class OrderController extends GetxController {
       ),
       // Green Fork
       FoodItem(
-        id: 'FD006',
-        stallId: 'STL003',
+        id: '6',
+        stallId: '3',
         name: 'Avocado Chicken Wrap',
         price: 135.0,
         description: 'Grilled chicken breast, avocado slices, greens, and yogurt dressing in a tortilla wrap.',
@@ -370,14 +413,14 @@ class OrderController extends GetxController {
     // Initial mock completed order in history
     orders.add(OrderModel(
       id: 'CFE-88910',
-      customerName: 'John Doe',
+      customerName: 'Jhonlord Dagasuan',
       stallName: 'Maria\'s Homestyle Meals',
-      stallId: 'STL001',
+      stallId: '1',
       items: [
         CartItem(foodItem: menuItems[0], quantity: 2),
         CartItem(foodItem: menuItems[2], quantity: 1),
       ],
-      total: 225.0,
+      total: 245.0, // 2 * 95 + 55 = 245
       status: 'completed',
       pickupTime: '12:30 PM (Completed)',
       paymentMethod: 'GCash',
@@ -388,9 +431,187 @@ class OrderController extends GetxController {
     ));
   }
 
-  void placeOrder(List<CartItem> cartItems, double total, String pickupTime, String paymentMethod) {
+  Future<void> fetchCanteensFromApi() async {
+    try {
+      final response = await http.get(
+        Uri.parse('${AuthController._apiBase}/canteens'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 4));
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        if (data['status'] == 'success' && data['canteens'] != null) {
+          var rawCanteens = data['canteens'] as List;
+          List<CanteenStall> parsedCanteens = [];
+          List<FoodItem> parsedMenu = [];
+          
+          for (var c in rawCanteens) {
+            String cId = c['id'].toString();
+            parsedCanteens.add(CanteenStall(
+              id: cId,
+              name: c['name'] ?? 'Stall',
+              description: c['description'] ?? '',
+              imageUrl: c['image_url'] ?? '',
+              hours: c['hours'] ?? '7:30 AM - 6:00 PM',
+              rating: double.tryParse(c['rating']?.toString() ?? '5.0') ?? 5.0,
+              isApproved: c['is_approved'] == 1 || c['is_approved'] == true,
+            ));
+            
+            // Sync its menu items
+            await fetchMenuForCanteen(cId, parsedMenu);
+          }
+          if (parsedCanteens.isNotEmpty) {
+            canteens.assignAll(parsedCanteens);
+          }
+          if (parsedMenu.isNotEmpty) {
+            menuItems.assignAll(parsedMenu);
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  Future<void> fetchMenuForCanteen(String canteenId, List<FoodItem> parsedMenu) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${AuthController._apiBase}/canteens/$canteenId/menu'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 4));
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        if (data['status'] == 'success' && data['menu'] != null) {
+          var rawMenu = data['menu'] as List;
+          for (var m in rawMenu) {
+            parsedMenu.add(FoodItem(
+              id: m['id'].toString(),
+              stallId: m['stall_id'].toString(),
+              name: m['name'] ?? 'Item',
+              price: double.tryParse(m['price']?.toString() ?? '0.0') ?? 0.0,
+              description: m['description'] ?? '',
+              category: m['category'] ?? 'Meals',
+              imageUrl: m['image_url'] ?? '',
+              isAvailable: m['is_available'] == 1 || m['is_available'] == true,
+            ));
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  Future<void> fetchOrdersFromApi() async {
+    final AuthController auth = Get.find<AuthController>();
+    if (auth.authToken.value.isEmpty || auth.authToken.value == 'MOCK_TOKEN') {
+      return;
+    }
+    
+    isLoadingOrders.value = true;
+    try {
+      final response = await http.get(
+        Uri.parse('${AuthController._apiBase}/orders'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.authToken.value}',
+        },
+      ).timeout(const Duration(seconds: 4));
+
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        if (data['status'] == 'success' && data['orders'] != null) {
+          var rawOrders = data['orders'] as List;
+          List<OrderModel> parsedOrders = [];
+          for (var o in rawOrders) {
+            List<CartItem> parsedItems = [];
+            if (o['order_items'] != null) {
+              for (var oi in o['order_items']) {
+                var fi = oi['food_item'];
+                if (fi != null) {
+                  parsedItems.add(CartItem(
+                    foodItem: FoodItem(
+                      id: fi['id'].toString(),
+                      stallId: fi['stall_id']?.toString() ?? o['stall_id'].toString(),
+                      name: fi['name'] ?? 'Unknown',
+                      price: double.tryParse(fi['price']?.toString() ?? '0.0') ?? 0.0,
+                      description: fi['description'] ?? '',
+                      category: fi['category'] ?? 'Meals',
+                      imageUrl: fi['image_url'] ?? '',
+                      isAvailable: fi['is_available'] == 1 || fi['is_available'] == true,
+                    ),
+                    quantity: oi['quantity'] ?? 1,
+                    notes: oi['notes'] ?? '',
+                  ));
+                }
+              }
+            }
+            
+            parsedOrders.add(OrderModel(
+              id: o['id'].toString(),
+              customerName: o['customer'] != null ? o['customer']['name'] : 'Student',
+              stallName: o['canteen_stall'] != null ? o['canteen_stall']['name'] : (auth.currentUser.value?.stallName ?? 'Stall'),
+              stallId: o['stall_id'].toString(),
+              items: parsedItems,
+              total: double.tryParse(o['total']?.toString() ?? '0.0') ?? 0.0,
+              status: o['status'] ?? 'pending',
+              pickupTime: o['pickup_time'] ?? 'ASAP',
+              paymentMethod: o['payment_method'] ?? 'GCash',
+              qrCode: o['qr_code'] ?? 'QR_CFE_${o['id']}',
+              rating: double.tryParse(o['rating']?.toString() ?? ''),
+              comment: o['comment'],
+              orderTime: DateTime.tryParse(o['created_at'] ?? '') ?? DateTime.now(),
+            ));
+          }
+          orders.assignAll(parsedOrders);
+        }
+      }
+    } catch (_) {} finally {
+      isLoadingOrders.value = false;
+    }
+  }
+
+  Future<void> placeOrderRemote(List<CartItem> cartItems, String pickupTime, String paymentMethod) async {
+    final AuthController auth = Get.find<AuthController>();
+    if (auth.authToken.value.isEmpty || auth.authToken.value == 'MOCK_TOKEN') {
+      return;
+    }
+    
+    try {
+      String stallId = cartItems.first.foodItem.stallId;
+      var payload = {
+        'stall_id': int.tryParse(stallId) ?? 1,
+        'pickup_time': pickupTime,
+        'payment_method': paymentMethod,
+        'items': cartItems.map((i) => {
+          'food_item_id': int.tryParse(i.foodItem.id) ?? 1,
+          'quantity': i.quantity,
+          'notes': i.notes,
+        }).toList(),
+      };
+
+      await http.post(
+        Uri.parse('${AuthController._apiBase}/orders'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.authToken.value}',
+        },
+        body: json.encode(payload),
+      ).timeout(const Duration(seconds: 4));
+    } catch (_) {}
+  }
+
+  void placeOrder(List<CartItem> cartItems, double total, String pickupTime, String paymentMethod) async {
     String stallId = cartItems.first.foodItem.stallId;
-    CanteenStall stall = canteens.firstWhere((element) => element.id == stallId);
+    CanteenStall stall = canteens.firstWhere(
+      (element) => element.id == stallId,
+      orElse: () => CanteenStall(id: stallId, name: 'My Stall', description: '', imageUrl: '', hours: '', rating: 5.0),
+    );
 
     var newOrder = OrderModel(
       id: 'CFE-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
@@ -407,6 +628,9 @@ class OrderController extends GetxController {
     );
 
     orders.insert(0, newOrder);
+    
+    await placeOrderRemote(cartItems, pickupTime, paymentMethod);
+    await fetchOrdersFromApi();
   }
 
   void submitRating(OrderModel order, double rating, String comment) {
@@ -420,23 +644,71 @@ class VendorController extends GetxController {
   var totalRevenue = 14520.0.obs;
   var activeOrdersCount = 0.obs;
 
-  void acceptOrder(OrderModel order) {
+  Future<void> updateOrderStatusOnApi(String orderId, String status) async {
+    final AuthController auth = Get.find<AuthController>();
+    if (auth.authToken.value.isEmpty || auth.authToken.value == 'MOCK_TOKEN') {
+      return;
+    }
+    try {
+      await http.post(
+        Uri.parse('${AuthController._apiBase}/orders/$orderId/status'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.authToken.value}',
+        },
+        body: json.encode({'status': status}),
+      ).timeout(const Duration(seconds: 3));
+    } catch (_) {}
+  }
+
+  void acceptOrder(OrderModel order) async {
     order.status = 'preparing';
     Get.find<OrderController>().orders.refresh();
+    await updateOrderStatusOnApi(order.id, 'preparing');
+    await Get.find<OrderController>().fetchOrdersFromApi();
   }
 
-  void markOrderReady(OrderModel order) {
+  void markOrderReady(OrderModel order) async {
     order.status = 'ready';
     Get.find<OrderController>().orders.refresh();
+    await updateOrderStatusOnApi(order.id, 'ready');
+    await Get.find<OrderController>().fetchOrdersFromApi();
   }
 
-  void completeOrder(OrderModel order) {
+  void completeOrder(OrderModel order) async {
     order.status = 'completed';
     totalRevenue.value += order.total;
     Get.find<OrderController>().orders.refresh();
+    await updateOrderStatusOnApi(order.id, 'completed');
+    await Get.find<OrderController>().fetchOrdersFromApi();
   }
 
-  void addNewFoodItem(String stallId, String name, double price, String description, String category, {String? imageUrl}) {
+  Future<void> addNewFoodItemRemote(String name, double price, String description, String category, String? imageUrl) async {
+    final AuthController auth = Get.find<AuthController>();
+    if (auth.authToken.value.isEmpty || auth.authToken.value == 'MOCK_TOKEN') {
+      return;
+    }
+    try {
+      await http.post(
+        Uri.parse('${AuthController._apiBase}/menu/add'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.authToken.value}',
+        },
+        body: json.encode({
+          'name': name,
+          'price': price,
+          'description': description,
+          'category': category,
+          'image_url': imageUrl,
+        }),
+      ).timeout(const Duration(seconds: 3));
+    } catch (_) {}
+  }
+
+  void addNewFoodItem(String stallId, String name, double price, String description, String category, {String? imageUrl}) async {
     var newItem = FoodItem(
       id: 'FD${DateTime.now().millisecondsSinceEpoch}',
       stallId: stallId,
@@ -449,6 +721,26 @@ class VendorController extends GetxController {
           : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
     );
     Get.find<OrderController>().menuItems.add(newItem);
+    
+    await addNewFoodItemRemote(name, price, description, category, imageUrl);
+    await Get.find<OrderController>().fetchCanteensFromApi();
+  }
+
+  Future<void> toggleAvailabilityRemote(String foodId) async {
+    final AuthController auth = Get.find<AuthController>();
+    if (auth.authToken.value.isEmpty || auth.authToken.value == 'MOCK_TOKEN') {
+      return;
+    }
+    try {
+      await http.post(
+        Uri.parse('${AuthController._apiBase}/menu/$foodId/toggle-availability'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.authToken.value}',
+        },
+      ).timeout(const Duration(seconds: 3));
+    } catch (_) {}
   }
 }
 

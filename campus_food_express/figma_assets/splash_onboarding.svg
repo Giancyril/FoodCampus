@@ -1,0 +1,61 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Shadow -->
+    <filter id="glow" x="65" y="110" width="260" height="260" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="20" flood-color="#1A365D" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="390" height="844" fill="#FFFFFF"/>
+
+  <!-- Top iOS Status Bar Mockup -->
+  <text x="32" y="32" fill="#000000" font-family="System-UI, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <path d="M328 22H338C339.105 22 340 22.8954 340 24V30C340 31.1046 339.105 32 338 32H328C326.895 32 326 31.1046 326 30V24C326 22.8954 326.895 22 328 22Z" stroke="#000000" stroke-width="1.5"/>
+  <rect x="328" y="24" width="8" height="6" rx="1" fill="#000000"/>
+
+  <!-- Cloche Spotlight Graphic -->
+  <g transform="translate(95, 140)">
+    <!-- Outer shadow ring -->
+    <circle cx="100" cy="100" r="100" fill="#FFFFFF" filter="url(#glow)"/>
+    
+    <!-- Outer faint ring -->
+    <circle cx="100" cy="100" r="95" fill="#F8FAFC"/>
+
+    <!-- Inner faint ring -->
+    <circle cx="100" cy="100" r="65" fill="#F1F5F9"/>
+
+    <!-- Cloche Icon (Navy) -->
+    <!-- Cloche Dome -->
+    <path d="M60 115C60 90 80 80 100 80C120 80 140 90 140 115H60Z" fill="#1A365D"/>
+    <!-- Cloche Handle -->
+    <circle cx="100" cy="74" r="7" fill="#1A365D"/>
+    <!-- Serving Tray Line -->
+    <rect x="54" y="118" width="92" height="6" rx="3" fill="#1A365D"/>
+  </g>
+
+  <!-- Title & Branding -->
+  <text x="195" y="440" text-anchor="middle" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="32" font-weight="900" letter-spacing="-1">Campus Food Express</text>
+  <text x="195" y="475" text-anchor="middle" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="14" font-weight="600" letter-spacing="0">Premium Campus Food &amp; Fast Delivery</text>
+
+  <!-- Button: GET STARTED -->
+  <a href="login_page.svg" style="cursor: pointer;">
+    <g transform="translate(32, 600)">
+      <rect x="0" y="0" width="326" height="56" rx="18" fill="#1A365D"/>
+      <text x="156" y="34" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="14" font-weight="800" letter-spacing="0.5">GET STARTED</text>
+      <!-- Right Arrow -->
+      <path d="M236 28H244M244 28L240 24M244 28L240 32" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </a>
+
+  <!-- Button: LOG IN -->
+  <a href="login_page.svg" style="cursor: pointer;">
+    <g transform="translate(32, 672)">
+      <rect x="0" y="0" width="326" height="56" rx="18" fill="none" stroke="#1A365D" stroke-width="2"/>
+      <text x="163" y="34" text-anchor="middle" fill="#1A365D" font-family="'Inter', sans-serif" font-size="14" font-weight="800" letter-spacing="0.5">LOGIN</text>
+    </g>
+  </a>
+
+  <!-- Bottom Home Bar Mockup -->
+  <rect x="125" y="824" width="140" height="5" rx="2.5" fill="#000000" fill-opacity="0.3"/>
+</svg>

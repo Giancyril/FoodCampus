@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'models/models.dart';
 import 'controllers/controllers.dart';
 
-// Custom AppColors to support our premium Emerald theme
+// Custom AppColors to support our premium Dark Blue/Navy theme
 class AppColors {
-  static const Color emerald = Color(0xFF10B981); // Vibrant organic green from Figma design
+  static const Color emerald = Color(0xFF1A365D); // Premium Deep Navy/Dark Blue theme
   static const Color background = Color(0xFFF5F6F6); // Soft off-white clean background
   static const Color textPrimary = Color(0xFF0D121B); // Deep blue-black font
   static const Color textSecondary = Color(0xFF7D8B9B); // Slate-gray secondary font
@@ -82,9 +82,152 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
   bool isRegistering = false;
   String selectedRole = 'customer';
   bool isLoading = false;
+  bool showOnboarding = true;
 
   @override
   Widget build(BuildContext context) {
+    if (showOnboarding) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Servings spotlight cloche graphic
+                  Container(
+                    width: 220,
+                    height: 220,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.emerald.withOpacity(0.08),
+                          spreadRadius: 10,
+                          blurRadius: 30,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Container(
+                        width: 140,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          color: AppColors.emerald.withOpacity(0.05),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.room_service_rounded,
+                          size: 72,
+                          color: AppColors.emerald,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+                  
+                  // Title
+                  const Text(
+                    'Campus Food Express',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.emerald,
+                      letterSpacing: -1.0,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  
+                  // Subtitle
+                  const Text(
+                    'Premium Campus Food & Fast Delivery',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 64),
+                  
+                  // GET STARTED Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          showOnboarding = false;
+                          isRegistering = true;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.emerald,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'GET STARTED',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 14,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Icon(Icons.arrow_forward_rounded, size: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  
+                  // LOGIN Button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          showOnboarding = false;
+                          isRegistering = false;
+                        });
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.emerald, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      child: const Text(
+                        'LOGIN',
+                        style: TextStyle(
+                          color: AppColors.emerald,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 14,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Stack(
@@ -97,7 +240,34 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Top Foodeli-style Header
+                    // Back button to Onboarding
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.03),
+                              blurRadius: 10,
+                              offset: const Offset(0, 2),
+                            )
+                          ],
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.emerald, size: 18),
+                          onPressed: () {
+                            setState(() {
+                              showOnboarding = true;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Top Logo Header
                     Center(
                       child: Column(
                         children: [
@@ -122,9 +292,9 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                           ),
                           const SizedBox(height: 20),
                           const Text(
-                            'Foodeli',
+                            'Campus Food Express',
                             style: TextStyle(
-                              fontSize: 34,
+                              fontSize: 32,
                               fontWeight: FontWeight.w900,
                               color: AppColors.textPrimary,
                               letterSpacing: -1.0,
@@ -136,7 +306,7 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                             style: TextStyle(
                               fontSize: 14,
                               color: AppColors.textSecondary,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -280,7 +450,7 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                               controller: _emailController,
                               style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                               decoration: InputDecoration(
-                                  labelText: 'Campus Email',
+                                  labelText: 'Campus Email / ID',
                                   labelStyle: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.w500),
                                   prefixIcon: const Icon(Icons.email_outlined, color: AppColors.textSecondary),
                                   filled: true,
@@ -372,7 +542,7 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                                 ),
                                 child: Text(
                                   isRegistering ? 'Sign Up' : 'Sign In',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15, letterSpacing: -0.2),
                                 ),
                               ),
                             ),
@@ -391,8 +561,8 @@ class _WelcomeLoginScreenState extends State<WelcomeLoginScreen> {
                                       : 'New to Foodeli? Create Account',
                                   style: const TextStyle(
                                     color: AppColors.emerald,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ),
@@ -818,21 +988,21 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               ),
             ),
 
-            // Premium Promo Banner Card with overlapping Salad Bowl
+            // Premium Promo Banner Card
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFF10B981), Color(0xFFEAB308)],
+                    colors: [AppColors.emerald, Color(0xFF2E5B9A)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(26),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF10B981).withOpacity(0.2),
+                      color: AppColors.emerald.withOpacity(0.2),
                       spreadRadius: 2,
                       blurRadius: 16,
                       offset: const Offset(0, 8),
@@ -847,20 +1017,20 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Campus Lunch\nSpecials',
+                            '20% OFF',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 22,
+                              fontSize: 26,
                               fontWeight: FontWeight.w900,
                               height: 1.1,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Campus Lunch Specials: 20% OFF ALL BOWLS! - Chef Maria\'s',
+                            'For all orders above ₱150',
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.9),
-                              fontSize: 11,
+                              fontSize: 12,
                               fontWeight: FontWeight.w700,
                               height: 1.3,
                             ),
@@ -870,13 +1040,13 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
-                              foregroundColor: const Color(0xFF10B981),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              foregroundColor: AppColors.emerald,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                               elevation: 0,
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
                             ),
                             child: const Text(
-                              'VIEW OFFERS',
+                              'PLACE NOW',
                               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 11),
                             ),
                           ),
@@ -889,12 +1059,14 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       child: AspectRatio(
                         aspectRatio: 1,
                         child: Container(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
                             shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300'),
-                              fit: BoxFit.cover,
-                            ),
+                          ),
+                          child: const Icon(
+                            Icons.room_service_outlined,
+                            color: Colors.white,
+                            size: 48,
                           ),
                         ),
                       ),
@@ -927,7 +1099,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
                         decoration: BoxDecoration(
-                          color: isSel ? const Color(0xFF10B981) : const Color(0xFFF1F5F9),
+                          color: isSel ? AppColors.emerald : const Color(0xFFF1F5F9),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -1490,12 +1662,61 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
           ),
         ],
       ),
+      floatingActionButton: Obx(() {
+        if (cartController.cartItems.isEmpty) return const SizedBox.shrink();
+        
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          width: MediaQuery.of(context).size.width - 48,
+          height: 56,
+          child: FloatingActionButton.extended(
+            onPressed: () {
+              Get.back();
+              Get.to(() => const CustomerCartScreen());
+            },
+            backgroundColor: AppColors.emerald,
+            elevation: 8,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            label: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.shopping_bag_rounded, color: Colors.white, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${cartController.itemCount} ${cartController.itemCount == 1 ? "Item" : "Items"} Added',
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 48),
+                Row(
+                  children: [
+                    const Text(
+                      'VIEW CART',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 13),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '(₱${cartController.total.toStringAsFixed(2)})',
+                      style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.w900, fontSize: 13),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   void _showAddToCartSheet(BuildContext context, FoodItem food) {
     int qty = 1;
     final notesController = TextEditingController();
+    List<String> selectedAddOns = [];
 
     showModalBottomSheet(
       context: context,
@@ -1507,6 +1728,15 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setModalState) {
+            // Dynamic price calculation
+            double basePrice = food.price;
+            double addonPrice = 0.0;
+            if (selectedAddOns.contains('Extra Chicken')) addonPrice += 30.0;
+            if (selectedAddOns.contains('Extra Rice')) addonPrice += 20.0;
+            if (selectedAddOns.contains('Extra Sauce')) addonPrice += 10.0;
+            double finalItemPrice = basePrice + addonPrice;
+            double totalSheetCost = finalItemPrice * qty;
+
             return Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -1554,6 +1784,65 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
+
+                  // Add-ons checklist
+                  const Text(
+                    'Add-ons',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 8),
+                  CheckboxListTile(
+                    title: const Text('Extra Chicken', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    secondary: const Text('+₱30.00', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                    value: selectedAddOns.contains('Extra Chicken'),
+                    activeColor: AppColors.emerald,
+                    contentPadding: EdgeInsets.zero,
+                    dense: true,
+                    onChanged: (val) {
+                      setModalState(() {
+                        if (val == true) {
+                          selectedAddOns.add('Extra Chicken');
+                        } else {
+                          selectedAddOns.remove('Extra Chicken');
+                        }
+                      });
+                    },
+                  ),
+                  CheckboxListTile(
+                    title: const Text('Extra Rice', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    secondary: const Text('+₱20.00', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                    value: selectedAddOns.contains('Extra Rice'),
+                    activeColor: AppColors.emerald,
+                    contentPadding: EdgeInsets.zero,
+                    dense: true,
+                    onChanged: (val) {
+                      setModalState(() {
+                        if (val == true) {
+                          selectedAddOns.add('Extra Rice');
+                        } else {
+                          selectedAddOns.remove('Extra Rice');
+                        }
+                      });
+                    },
+                  ),
+                  CheckboxListTile(
+                    title: const Text('Extra Sauce', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    secondary: const Text('+₱10.00', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                    value: selectedAddOns.contains('Extra Sauce'),
+                    activeColor: AppColors.emerald,
+                    contentPadding: EdgeInsets.zero,
+                    dense: true,
+                    onChanged: (val) {
+                      setModalState(() {
+                        if (val == true) {
+                          selectedAddOns.add('Extra Sauce');
+                        } else {
+                          selectedAddOns.remove('Extra Sauce');
+                        }
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
 
                   // Quantity Selector
                   Row(
@@ -1614,7 +1903,7 @@ class _CustomerMenuScreenState extends State<CustomerMenuScreen> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        cartController.addToCart(food, qty, notesController.text);
+                        cartController.addToCart(food, qty, notesController.text, selectedAddOns);
                         Get.back();
                         Get.snackbar(
                           'Success',
@@ -1653,32 +1942,45 @@ class CustomerCartScreen extends StatefulWidget {
 
 class _CustomerCartScreenState extends State<CustomerCartScreen> {
   final CartController cartController = Get.find<CartController>();
-  final OrderController orderController = Get.find<OrderController>();
-
-  String selectedPickupTime = 'ASAP';
-  String selectedPaymentMethod = 'GCash';
 
   @override
   Widget build(BuildContext context) {
-    List<String> pickupTimes = ['ASAP', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM'];
-    List<String> paymentMethods = ['GCash', 'Card Payment', 'Campus Wallet'];
-
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
-        title: const Text('My Cart', style: TextStyle(fontWeight: FontWeight.bold)),
-        elevation: 0,
+        title: const Text('My Cart', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textPrimary, size: 18),
+          onPressed: () => Get.back(),
+        ),
       ),
       body: Obx(
         () {
           if (cartController.cartItems.isEmpty) {
-            return const Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey),
-                  SizedBox(height: 16),
-                  Text('Your cart is empty!', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: AppColors.emerald.withOpacity(0.08),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.shopping_bag_outlined, size: 64, color: AppColors.emerald),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Your cart is empty!',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Browse stalls and add delicious dishes',
+                    style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  ),
                 ],
               ),
             );
@@ -1717,8 +2019,15 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                                 children: [
                                   Text(
                                     item.foodItem.name,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.textPrimary),
                                   ),
+                                  if (item.addOns.isNotEmpty) ...[
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      'Add-ons: ${item.addOns.join(", ")}',
+                                      style: const TextStyle(color: AppColors.emerald, fontSize: 11, fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
                                   if (item.notes.isNotEmpty) ...[
                                     const SizedBox(height: 2),
                                     Text(
@@ -1728,7 +2037,7 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                                   ],
                                   const SizedBox(height: 6),
                                   Text(
-                                    '₱${item.foodItem.price.toStringAsFixed(2)}',
+                                    '₱${item.total.toStringAsFixed(2)}',
                                     style: const TextStyle(color: AppColors.emerald, fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -1762,7 +2071,7 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                 ),
               ),
 
-              // Checkout Sheet
+              // Summary Box
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
@@ -1773,51 +2082,10 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Pickup Time Picker
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Pickup Time:', style: TextStyle(fontWeight: FontWeight.bold)),
-                        DropdownButton<String>(
-                          value: selectedPickupTime,
-                          items: pickupTimes.map((time) {
-                            return DropdownMenuItem(value: time, child: Text(time));
-                          }).toList(),
-                          onChanged: (val) {
-                            setState(() {
-                              selectedPickupTime = val!;
-                            });
-                          },
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-
-                    // Payment Method Picker
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Payment Method:', style: TextStyle(fontWeight: FontWeight.bold)),
-                        DropdownButton<String>(
-                          value: selectedPaymentMethod,
-                          items: paymentMethods.map((method) {
-                            return DropdownMenuItem(value: method, child: Text(method));
-                          }).toList(),
-                          onChanged: (val) {
-                            setState(() {
-                              selectedPaymentMethod = val!;
-                            });
-                          },
-                        )
-                      ],
-                    ),
-                    const Divider(height: 24),
-
-                    // Totals
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Subtotal'),
+                        const Text('Subtotal', style: TextStyle(color: AppColors.textSecondary)),
                         Text('₱${cartController.subtotal.toStringAsFixed(2)}'),
                       ],
                     ),
@@ -1825,11 +2093,11 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('VAT (5%)'),
+                        const Text('VAT (5%)', style: TextStyle(color: AppColors.textSecondary)),
                         Text('₱${cartController.tax.toStringAsFixed(2)}'),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const Divider(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -1842,41 +2110,21 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // Checkout Button
+                    // Proceed to Checkout Button
                     SizedBox(
                       width: double.infinity,
-                      height: 48,
+                      height: 52,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Open Mock Payment screen
-                          Get.to(() => MockPaymentGatewayScreen(
-                                amount: cartController.total,
-                                paymentMethod: selectedPaymentMethod,
-                                onPaymentSuccess: () {
-                                  // Submit order
-                                  orderController.placeOrder(
-                                    cartController.cartItems,
-                                    cartController.total,
-                                    selectedPickupTime,
-                                    selectedPaymentMethod,
-                                  );
-                                  cartController.clearCart();
-                                  Get.back(); // Pop payment screen
-                                  Get.snackbar(
-                                    'Order Confirmed!',
-                                    'Check the Track tab for status.',
-                                    backgroundColor: AppColors.emerald,
-                                    colorText: Colors.white,
-                                  );
-                                },
-                              ));
+                          Get.to(() => const CustomerCheckoutScreen());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.emerald,
                           foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          elevation: 0,
                         ),
-                        child: const Text('Proceed to Checkout', style: TextStyle(fontWeight: FontWeight.bold)),
+                        child: const Text('Proceed to Checkout', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                       ),
                     )
                   ],
@@ -1885,6 +2133,497 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+// 2d. CUSTOMER CHECKOUT SCREEN (Figma Spec)
+class CustomerCheckoutScreen extends StatefulWidget {
+  const CustomerCheckoutScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CustomerCheckoutScreen> createState() => _CustomerCheckoutScreenState();
+}
+
+class _CustomerCheckoutScreenState extends State<CustomerCheckoutScreen> {
+  final CartController cartController = Get.find<CartController>();
+  final OrderController orderController = Get.find<OrderController>();
+
+  bool isDelivery = true;
+  String selectedPayment = 'GCash E-Wallet';
+
+  @override
+  Widget build(BuildContext context) {
+    double deliveryFee = isDelivery ? 25.0 : 0.0;
+    double finalTotal = cartController.total + deliveryFee;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAFB),
+      appBar: AppBar(
+        title: const Text('Checkout', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        backgroundColor: Colors.white,
+        elevation: 0.5,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.textPrimary, size: 18),
+          onPressed: () => Get.back(),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                // 1. Sliding Tab Selector (Delivery / Pickup)
+                Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => isDelivery = true),
+                          child: Container(
+                            margin: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: isDelivery ? AppColors.emerald : Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Delivery',
+                                style: TextStyle(
+                                  color: isDelivery ? Colors.white : AppColors.textSecondary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => isDelivery = false),
+                          child: Container(
+                            margin: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: !isDelivery ? AppColors.emerald : Colors.transparent,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Pickup',
+                                style: TextStyle(
+                                  color: !isDelivery ? Colors.white : AppColors.textSecondary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // 2. Delivery Location Card
+                if (isDelivery) ...[
+                  const Text(
+                    'Delivery Location',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.01),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: AppColors.emerald.withOpacity(0.08),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(Icons.location_on_rounded, color: AppColors.emerald, size: 20),
+                        ),
+                        const SizedBox(width: 14),
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'COE BUILDING - ROOM 207',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'College of Engineering, Campus Main',
+                                style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                              ),
+                            ],
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit_rounded, color: AppColors.textSecondary, size: 18),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                ],
+
+                // 3. Payment Methods List
+                const Text(
+                  'Payment Method',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.01),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      _buildPaymentOption('GCash E-Wallet', Icons.account_balance_wallet_rounded, Colors.blue),
+                      const Divider(height: 1),
+                      _buildPaymentOption('Cash on Delivery (COD)', Icons.payments_rounded, Colors.green),
+                      const Divider(height: 1),
+                      _buildPaymentOption('Credit / Debit Card', Icons.credit_card_rounded, Colors.purple),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // 4. Billing summary Details
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Basket Cost', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                          Text('₱${cartController.subtotal.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('VAT (5%)', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                          Text('₱${cartController.tax.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Delivery Fee', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                          Text('₱${deliveryFee.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                        ],
+                      ),
+                      const Divider(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Total Bill', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                          Text('₱${finalTotal.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppColors.emerald)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Bottom Place Order Button
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Submit the order
+                  String newOrderId = 'CFE-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+                  var activeItems = List<CartItem>.from(cartController.cartItems);
+                  
+                  // Setup order confirmation details
+                  String canteenStallName = activeItems.isNotEmpty ? activeItems.first.foodItem.name.contains('Maria') ? "Maria's Homestyle Meals" : activeItems.first.foodItem.name : "Maria's Homestyle Meals";
+                  
+                  orderController.placeOrder(
+                    activeItems,
+                    finalTotal,
+                    isDelivery ? 'Delivery' : 'Pickup',
+                    selectedPayment,
+                  );
+
+                  // Clear cart
+                  cartController.clearCart();
+
+                  // Open Order Confirmation page
+                  Get.off(() => OrderConfirmationScreen(
+                    orderId: newOrderId,
+                    stallName: canteenStallName,
+                    amount: finalTotal,
+                  ));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.emerald,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                  elevation: 0,
+                ),
+                child: Text(
+                  'PLACE ORDER (₱${finalTotal.toStringAsFixed(2)})',
+                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14, letterSpacing: 0.5),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPaymentOption(String title, IconData icon, Color iconColor) {
+    bool isSelected = selectedPayment == title;
+    return InkWell(
+      onTap: () => setState(() => selectedPayment = title),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(icon, color: isSelected ? AppColors.emerald : iconColor, size: 22),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                  fontSize: 13,
+                  color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+                ),
+              ),
+            ),
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? AppColors.emerald : Colors.grey.shade300,
+                  width: isSelected ? 6 : 2,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// 2e. CUSTOMER ORDER CONFIRMATION SCREEN (Figma Spec)
+class OrderConfirmationScreen extends StatelessWidget {
+  final String orderId;
+  final String stallName;
+  final double amount;
+
+  const OrderConfirmationScreen({
+    Key? key,
+    required this.orderId,
+    required this.stallName,
+    required this.amount,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Checkmark success ring graphic
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 90,
+                      height: 90,
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check_rounded,
+                        size: 52,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                const Text(
+                  'Order Confirmed!',
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.textPrimary,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Your stellar food has been scheduled.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 36),
+
+                // Order details card
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8FAFC),
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Order Number', style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text('#$orderId', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textPrimary)),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Canteen Stall', style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(stallName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textPrimary)),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Estimated Time', style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text('20 - 30 mins', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textPrimary)),
+                        ],
+                      ),
+                      const Divider(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Total Cost', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                          Text('₱${amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: AppColors.emerald)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 48),
+
+                // VIEW ORDER Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.offAll(() => const CustomerMainScreen());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.emerald,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      elevation: 0,
+                    ),
+                    child: const Text(
+                      'TRACK ORDER',
+                      style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14, letterSpacing: 0.5),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // BACK TO HOME Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Get.offAll(() => const CustomerMainScreen());
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: AppColors.emerald, width: 2),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                    ),
+                    child: const Text(
+                      'BACK TO HOME',
+                      style: TextStyle(
+                        color: AppColors.emerald,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 14,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -1990,165 +2729,236 @@ class CustomerActiveOrderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
-        title: const Text('Active Order Status', style: TextStyle(fontWeight: FontWeight.bold)),
-        elevation: 0,
+        title: const Text('Track Order', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        backgroundColor: Colors.white,
+        elevation: 0.5,
       ),
       body: Obx(
         () {
           var activeOrders = orderController.orders.where((o) => o.status != 'completed').toList();
 
           if (activeOrders.isEmpty) {
-            return const Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.local_shipping_outlined, size: 64, color: Colors.grey),
-                  const SizedBox(height: 16),
-                  const Text('No active orders right now.', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: AppColors.emerald.withOpacity(0.08),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.local_shipping_outlined, size: 64, color: AppColors.emerald),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'No active orders right now.',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Place an order to see live real-time tracking!',
+                    style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  ),
                 ],
               ),
             );
           }
 
-          var order = activeOrders.first; // Track the most recent active order
+          var order = activeOrders.first;
 
-          // Helper logic for status progress
-          int statusProgress = 1;
-          if (order.status == 'preparing') statusProgress = 2;
-          if (order.status == 'ready') statusProgress = 3;
+          // Steps logic
+          bool step1Active = true;
+          bool step1Completed = order.status != 'pending';
+          
+          bool step2Active = order.status == 'preparing' || order.status == 'ready';
+          bool step2Completed = order.status == 'ready';
+          
+          bool step3Active = order.status == 'ready';
+          bool step3Completed = false;
+
+          bool isDelivery = order.pickupTime.toLowerCase().contains('delivery');
 
           return ListView(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(20.0),
             children: [
-              // Main Ticket Header
-              Card(
-                color: Colors.white,
-                elevation: 4,
-                shadowColor: Colors.black12,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ORDER ID: ${order.id}',
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.grey),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                order.stallName,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                              ),
-                            ],
-                          ),
-                          Chip(
-                            label: Text(
-                              order.status.toUpperCase(),
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
-                            ),
-                            backgroundColor: order.status == 'pending'
-                                ? Colors.amber.shade100
-                                : order.status == 'preparing'
-                                    ? Colors.blue.shade100
-                                    : Colors.green.shade100,
-                          )
-                        ],
-                      ),
-                      const Divider(height: 32),
-
-                      // Elegant status trackers
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildStatusStep('Placed', true, statusProgress >= 1),
-                          _buildStatusStep('Preparing', statusProgress >= 2, statusProgress >= 2),
-                          _buildStatusStep('Ready', statusProgress >= 3, statusProgress >= 3),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-
-                      // QR Code Container for pick up verification
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade50,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
+              // Delivery Status Header Card
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.02),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    )
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'Present QR Code at Canteen to pickup:',
-                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
-                            ),
-                            const SizedBox(height: 12),
-                            // Simulated QR Code Graphic
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              color: Colors.white,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.qr_code_2_rounded, size: 140, color: Colors.grey.shade800),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 8),
                             Text(
-                              'Pickup Code: ${order.id.substring(4)}',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              'ORDER NUMBER #${order.id}',
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: AppColors.textSecondary, letterSpacing: 0.5),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              order.stallName,
+                              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppColors.textPrimary),
                             ),
                           ],
                         ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: order.status == 'pending'
+                                ? Colors.amber.shade50
+                                : order.status == 'preparing'
+                                    ? Colors.blue.shade50
+                                    : Colors.green.shade50,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            order.status.toUpperCase(),
+                            style: TextStyle(
+                              color: order.status == 'pending'
+                                  ? Colors.amber.shade800
+                                  : order.status == 'preparing'
+                                      ? Colors.blue.shade800
+                                      : Colors.green.shade800,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 32),
+
+                    // Vertical Timeline Status steps (Screen 9 Spec)
+                    _buildVerticalTimelineStep(
+                      title: 'Order Received',
+                      subtitle: 'We have received your campus order.',
+                      isActive: step1Active,
+                      isCompleted: step1Completed,
+                      icon: Icons.check_circle_rounded,
+                      isLast: false,
+                    ),
+                    _buildVerticalTimelineStep(
+                      title: 'Preparing Your Food',
+                      subtitle: 'The kitchen chef is prepping your meal.',
+                      isActive: step2Active,
+                      isCompleted: step2Completed,
+                      icon: Icons.restaurant_rounded,
+                      isLast: false,
+                    ),
+                    _buildVerticalTimelineStep(
+                      title: isDelivery ? 'Out for Delivery' : 'Ready for Pickup',
+                      subtitle: isDelivery ? 'Rider is on their way to COE Room 207.' : 'Collect your food from the kitchen counter.',
+                      isActive: step3Active,
+                      isCompleted: step3Completed,
+                      icon: isDelivery ? Icons.moped_rounded : Icons.shopping_bag_rounded,
+                      isLast: true,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // QR Code Card for swift verification
+              if (order.status == 'ready' && !isDelivery) ...[
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(22),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.01),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
                       )
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // Items details
-              const Text(
-                'Order Details',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      ...order.items.map((item) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('${item.quantity}x ${item.foodItem.name}'),
-                              Text('₱${item.total.toStringAsFixed(2)}'),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Total Amount Paid', style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text(
-                            '₱${order.total.toStringAsFixed(2)}',
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.emerald, fontSize: 16),
-                          ),
-                        ],
+                      const Text(
+                        'Present QR Code at counter to claim:',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: Colors.grey.shade100, width: 2),
+                        ),
+                        child: const Icon(Icons.qr_code_2_rounded, size: 130, color: AppColors.emerald),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        'Claim Code: ${order.id.substring(4)}',
+                        style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 16, color: AppColors.textPrimary),
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 20),
+              ],
+
+              // Order Items details list
+              const Text(
+                'Basket Content',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: AppColors.textPrimary),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Column(
+                  children: [
+                    ...order.items.map((item) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${item.quantity}x ${item.foodItem.name}',
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                            ),
+                            Text(
+                              '₱${item.total.toStringAsFixed(2)}',
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    const Divider(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Total Amount Charged', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                        Text(
+                          '₱${order.total.toStringAsFixed(2)}',
+                          style: const TextStyle(fontWeight: FontWeight.w900, color: AppColors.emerald, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               )
             ],
@@ -2158,28 +2968,89 @@ class CustomerActiveOrderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusStep(String label, bool isDone, bool isActive) {
-    return Column(
+  Widget _buildVerticalTimelineStep({
+    required String title,
+    required String subtitle,
+    required bool isActive,
+    required bool isCompleted,
+    required IconData icon,
+    required bool isLast,
+  }) {
+    Color activeColor = AppColors.emerald;
+    Color inactiveColor = Colors.grey.shade300;
+    Color iconColor = isCompleted
+        ? activeColor
+        : isActive
+            ? activeColor
+            : Colors.grey.shade400;
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          isDone ? Icons.check_circle : Icons.radio_button_unchecked,
-          color: isDone
-              ? AppColors.emerald
-              : isActive
-                  ? Colors.amber
-                  : Colors.grey,
+        // Timeline Dot & Connector
+        Column(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: isCompleted
+                    ? activeColor.withOpacity(0.08)
+                    : isActive
+                        ? activeColor.withOpacity(0.08)
+                        : Colors.grey.shade50,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isCompleted
+                      ? activeColor
+                      : isActive
+                          ? activeColor
+                          : inactiveColor,
+                  width: 2,
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  isCompleted ? Icons.check_rounded : icon,
+                  size: 14,
+                  color: iconColor,
+                ),
+              ),
+            ),
+            if (!isLast)
+              Container(
+                width: 2,
+                height: 48,
+                color: isCompleted ? activeColor : inactiveColor,
+              ),
+          ],
         ),
-        const SizedBox(height: 6),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: isDone || isActive ? FontWeight.bold : FontWeight.normal,
-            color: isDone
-                ? AppColors.emerald
-                : isActive
-                    ? Colors.amber.shade800
-                    : Colors.grey,
+        const SizedBox(width: 16),
+        // Content Details
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 6),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: isActive || isCompleted ? AppColors.textPrimary : AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: isCompleted ? AppColors.textSecondary : Colors.grey.shade500,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              if (!isLast) const SizedBox(height: 24),
+            ],
           ),
         ),
       ],

@@ -1,0 +1,82 @@
+<svg width="390" height="844" viewBox="0 0 390 844" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="390" height="844" rx="40" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="3"/>
+
+  <!-- Top Status Bar -->
+  <text x="32" y="32" fill="#0F172A" font-family="System-UI, -apple-system, sans-serif" font-size="14" font-weight="600" letter-spacing="-0.2">9:41</text>
+  <path d="M328 22H338C339.105 22 340 22.8954 340 24V30C340 31.1046 339.105 32 338 32H328C326.895 32 326 31.1046 326 30V24C326 22.8954 326.895 22 328 22Z" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="328" y="24" width="8" height="6" rx="1" fill="#0F172A"/>
+
+  <!-- Header -->
+  <g transform="translate(24, 55)">
+    <!-- Back arrow links to student_home.svg -->
+    <a href="student_home.svg" style="cursor: pointer;">
+      <path d="M0 16H16M0 16L6 10M0 16L6 22" stroke="#1A365D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </a>
+    <text x="32" y="22" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="900">Order History</text>
+  </g>
+
+  <!-- Central empty state content -->
+  <g transform="translate(45, 230)">
+    <!-- Circular background overlay -->
+    <circle cx="150" cy="120" r="80" fill="#FEE2E2" fill-opacity="0.6"/>
+    <circle cx="150" cy="120" r="60" fill="#FCA5A5" fill-opacity="0.4"/>
+    
+    <!-- Colorful clock back-arrow history vector illustration -->
+    <g transform="translate(110, 80)" stroke="#DC2626" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M40 70C59.33 70 75 54.33 75 35C75 15.67 59.33 0 40 0C20.67 0 5 15.67 5 35" stroke-width="6"/>
+      <path d="M0 35L5 30L10 35" stroke-width="6"/>
+      <!-- Clock Hands -->
+      <path d="M40 16V35H54" stroke-width="5"/>
+    </g>
+
+    <!-- Empty Labels -->
+    <text x="150" y="244" text-anchor="middle" fill="#1A365D" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="900">No previous orders!</text>
+    <text x="150" y="272" text-anchor="middle" fill="#7D8B9B" font-family="'Inter', sans-serif" font-size="14" font-weight="400">You haven't completed any university orders yet.</text>
+    <text x="150" y="292" text-anchor="middle" fill="#7D8B9B" font-family="'Inter', sans-serif" font-size="14" font-weight="400">Order your first delicious snack today!</text>
+  </g>
+
+  <!-- Button: ORDER FIRST MEAL (Links to student_home.svg) -->
+  <a href="student_home.svg" style="cursor: pointer;">
+    <g transform="translate(24, 574)">
+      <rect width="342" height="54" rx="16" fill="#1A365D"/>
+      <text x="171" y="32" text-anchor="middle" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="15" font-weight="800" letter-spacing="-0.2">ORDER YOUR FIRST MEAL</text>
+    </g>
+  </a>
+
+  <!-- Navigation Bar capsule -->
+  <g transform="translate(24, 762)">
+    <rect width="342" height="60" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    
+    <!-- Home Tab -->
+    <a href="student_home.svg" style="cursor: pointer;">
+      <g transform="translate(28, 10)">
+        <path d="M10 20V12H14V20H19V10L12 3L5 10V20H10Z" fill="#7D8B9B"/>
+      </g>
+    </a>
+
+    <!-- Cart Tab -->
+    <a href="cart.svg" style="cursor: pointer;">
+      <g transform="translate(112, 10)">
+        <path d="M4 4H7L9 14H17L19 6H8" stroke="#7D8B9B" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="10" cy="17" r="1.5" fill="#7D8B9B"/>
+        <circle cx="16" cy="17" r="1.5" fill="#7D8B9B"/>
+      </g>
+    </a>
+
+    <!-- Track Status Tab -->
+    <a href="active_order_status.svg" style="cursor: pointer;">
+      <g transform="translate(204, 10)">
+        <rect x="4" y="4" width="16" height="16" rx="3" stroke="#7D8B9B" stroke-width="2.5"/>
+        <circle cx="12" cy="12" r="3" fill="#7D8B9B"/>
+      </g>
+    </a>
+
+    <!-- Profile/History Tab (Active Dark Blue) -->
+    <a href="order_history.svg" style="cursor: pointer;">
+      <g transform="translate(288, 10)">
+        <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.33 4 18V20H20V18C20 15.33 14.67 14 12 14Z" fill="#1A365D"/>
+      </g>
+    </a>
+  </g>
+</svg>

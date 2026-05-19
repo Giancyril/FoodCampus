@@ -76,18 +76,24 @@ class ApiController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        if (!Auth::attempt($validated)) {
+        $loginField = $request->input('email');
+        
+        $user = User::where('email', $loginField)
+                    ->orWhere('campus_id', $loginField)
+                    ->first();
+
+        if (!$user || !\Illuminate\Support\Facades\Hash::check($request->input('password'), $user->password)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid email or password'
+                'message' => 'Invalid email/student ID or password'
             ], 401);
         }
 
-        $user = Auth::user();
+        Auth::login($user);
         $token = $user->createToken('CampusFoodExpress')->accessToken;
 
         return response()->json([

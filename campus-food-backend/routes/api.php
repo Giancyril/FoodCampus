@@ -6,16 +6,14 @@ use App\Http\Controllers\ApiController;
 // Public Guest Routes
 Route::post('/register', [ApiController::class, 'register']);
 Route::post('/login', [ApiController::class, 'login']);
+Route::get('/canteens', [ApiController::class, 'listCanteens']);
+Route::get('/canteens/{id}/menu', [ApiController::class, 'getCanteenMenu']);
 
 // Authenticated Routes (Requires Passport access token)
 Route::middleware('auth:api')->group(function () {
     // Auth & profile
     Route::get('/user', [ApiController::class, 'profile']);
     Route::post('/logout', [ApiController::class, 'logout']);
-
-    // Canteen Stalls Browse
-    Route::get('/canteens', [ApiController::class, 'listCanteens']);
-    Route::get('/canteens/{id}/menu', [ApiController::class, 'getCanteenMenu']);
 
     // Customer Cart & Checkout & Rating
     Route::post('/orders', [ApiController::class, 'placeOrder']);
