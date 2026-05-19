@@ -9,7 +9,7 @@ class AuthController extends GetxController {
   var isLoggedIn = false.obs;
   var authToken = ''.obs;
 
-  static const String _apiBase = "http://127.0.0.1:8000/api";
+  static const String _apiBase = "https://foodcampus.onrender.com/api";
   late SharedPreferences _prefs;
 
   @override
